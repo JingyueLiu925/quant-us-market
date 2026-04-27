@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>量化交易策略教程</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #2f81f7;
+    --accent-soft: #1f3a5c;
+    --green: #3fb950;
+    --orange: #d29922;
+    --purple: #a371f7;
+    --red: #f85149;
+    --code-bg: #1c2128;
+    --nav-width: 260px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    display: flex;
+  }
+
+  /* ── 侧边导航 ── */
+  nav {
+    width: var(--nav-width);
+    min-height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 28px 0;
+    position: fixed;
+    top: 0; left: 0;
+    overflow-y: auto;
+  }
+  nav .logo {
+    padding: 0 20px 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  nav .logo h2 { font-size: 14px; color: var(--accent); font-weight: 600; letter-spacing: .5px; }
+  nav .logo p  { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  nav a {
+    display: block;
+    padding: 7px 20px;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    border-left: 2px solid transparent;
+    transition: all .15s;
+  }
+  nav a:hover, nav a.active {
+    color: var(--text);
+    background: rgba(47,129,247,.08);
+    border-left-color: var(--accent);
+  }
+  nav .section-label {
+    padding: 16px 20px 6px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── 主内容 ── */
+  main {
+    margin-left: var(--nav-width);
+    max-width: 860px;
+    padding: 56px 48px;
+  }
+
+  /* ── 排版 ── */
+  h1 { font-size: 32px; font-weight: 700; margin-bottom: 12px; line-height: 1.3; }
+  h2 {
+    font-size: 22px; font-weight: 600;
+    margin: 56px 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: 24px;
+  }
+  h3 { font-size: 17px; font-weight: 600; margin: 28px 0 10px; color: var(--text); }
+  h4 { font-size: 14px; font-weight: 600; margin: 20px 0 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; }
+  p  { margin-bottom: 14px; color: #cdd9e5; }
+  ul, ol { padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 6px; color: #cdd9e5; }
+  strong { color: var(--text); }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── 头部横幅 ── */
+  .hero {
+    background: linear-gradient(135deg, #1a2340 0%, #0d1117 60%);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 40px 44px;
+    margin-bottom: 48px;
+  }
+  .hero .subtitle { color: var(--text-muted); font-size: 16px; margin-top: 10px; margin-bottom: 0; }
+  .hero .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+  .tag {
+    font-size: 12px; padding: 3px 10px; border-radius: 20px; font-weight: 500;
+    border: 1px solid;
+  }
+  .tag.blue   { color: var(--accent); border-color: var(--accent-soft); background: rgba(47,129,247,.08); }
+  .tag.green  { color: var(--green);  border-color: #2d5016; background: rgba(63,185,80,.08); }
+  .tag.purple { color: var(--purple); border-color: #4a2b7a; background: rgba(163,113,247,.08); }
+  .tag.orange { color: var(--orange); border-color: #6b4c0a; background: rgba(210,153,34,.08); }
+
+  /* ── 策略卡片 ── */
+  .strategy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: border-color .2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card .card-icon { font-size: 24px; margin-bottom: 10px; }
+  .card h3 { margin: 0 0 6px; font-size: 15px; }
+  .card p  { font-size: 13px; color: var(--text-muted); margin: 0; }
+
+  /* ── 代码块 ── */
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    overflow-x: auto;
+    margin: 16px 0;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  code { font-family: "SF Mono", "Fira Code", Consolas, monospace; }
+  p code, li code {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 12.5px;
+    color: #e6c07b;
+  }
+  .kw  { color: #f97583; }
+  .fn  { color: #79b8ff; }
+  .str { color: #9ecbff; }
+  .cm  { color: #6a737d; }
+  .num { color: #79c0ff; }
+  .var { color: #e6edf3; }
+
+  /* ── 信息框 ── */
+  .callout {
+    border-left: 3px solid;
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    margin: 20px 0;
+    font-size: 13.5px;
+  }
+  .callout.info   { border-color: var(--accent); background: rgba(47,129,247,.07); }
+  .callout.tip    { border-color: var(--green);  background: rgba(63,185,80,.07); }
+  .callout.warn   { border-color: var(--orange); background: rgba(210,153,34,.07); }
+  .callout.danger { border-color: var(--red);    background: rgba(248,81,73,.07); }
+  .callout strong { display: block; margin-bottom: 4px; }
+
+  /* ── 对比表格 ── */
+  table {
+    width: 100%; border-collapse: collapse;
+    margin: 20px 0; font-size: 13.5px;
+  }
+  th {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 10px 14px;
+    text-align: left; font-weight: 600;
+    color: var(--text-muted); font-size: 12px; text-transform: uppercase;
+  }
+  td {
+    border: 1px solid var(--border);
+    padding: 10px 14px; vertical-align: top;
+  }
+  tr:nth-child(even) td { background: rgba(22,27,34,.5); }
+
+  /* ── 公式块 ── */
+  .formula {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    font-family: "SF Mono", Consolas, monospace;
+    font-size: 13.5px;
+    color: #e6c07b;
+    margin: 16px 0;
+    text-align: center;
+  }
+
+  /* ── 时间线 ── */
+  .timeline { list-style: none; padding: 0; margin: 16px 0; }
+  .timeline li {
+    position: relative;
+    padding: 0 0 20px 28px;
+    border-left: 2px solid var(--border);
+    margin: 0;
+  }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -5px; top: 6px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .timeline li:last-child { border-left-color: transparent; }
+  .timeline .year { font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 2px; }
+
+  /* ── 响应式 ── */
+  @media (max-width: 768px) {
+    nav { display: none; }
+    main { margin-left: 0; padding: 24px 20px; }
+    .strategy-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ 侧边导航 ══════════════ -->
+<nav>
+  <div class="logo">
+    <h2>📈 量化交易教程</h2>
+    <p>Quantitative Trading Guide</p>
+  </div>
+
+  <div class="section-label">基础</div>
+  <a href="#intro">什么是量化交易</a>
+  <a href="#history">发展历史</a>
+  <a href="#workflow">完整工作流</a>
+
+  <div class="section-label">主要策略</div>
+  <a href="#momentum">① 动量策略</a>
+  <a href="#mean-reversion">② 均值回归</a>
+  <a href="#factor">③ 多因子选股</a>
+  <a href="#stat-arb">④ 统计套利</a>
+  <a href="#event">⑤ 事件驱动</a>
+
+  <div class="section-label">风险与实践</div>
+  <a href="#risk">风险管理</a>
+  <a href="#backtest">回测方法论</a>
+  <a href="#cost">交易成本</a>
+  <a href="#comparison">策略横向对比</a>
+</nav>
+
+<!-- ══════════════ 主内容 ══════════════ -->
+<main>
+
+  <!-- 头部 -->
+  <div class="hero">
+    <h1>量化交易策略教程</h1>
+    <p class="subtitle">从动量因子到统计套利，系统梳理主流量化策略的逻辑、公式与代码实现</p>
+    <div class="tags">
+      <span class="tag blue">Python</span>
+      <span class="tag green">美股 / A股</span>
+      <span class="tag purple">因子投资</span>
+      <span class="tag orange">风险管理</span>
+    </div>
+  </div>
+
+  <!-- ══ 什么是量化交易 ══ -->
+  <h2 id="intro">什么是量化交易</h2>
+  <p>
+    量化交易（Quantitative Trading）是用数学模型和计算机程序来识别、执行交易机会的方法。
+    与主观交易不同，量化策略的每一个决策都有明确的规则，可以被历史数据验证，排除情绪干扰。
+  </p>
+
+  <div class="strategy-grid">
+    <div class="card">
+      <div class="card-icon">🔬</div>
+      <h3>规则驱动</h3>
+      <p>每笔交易都基于预先定义的数学信号，完全可复现</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <h3>数据驱动</h3>
+      <p>用历史数据检验策略有效性，而非依靠直觉和经验</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>自动化执行</h3>
+      <p>程序化下单，消除人工执行的延迟和心理偏差</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📐</div>
+      <h3>风险可量化</h3>
+      <p>夏普比率、最大回撤、VaR 等指标精确衡量风险</p>
+    </div>
+  </div>
+
+  <!-- ══ 发展历史 ══ -->
+  <h2 id="history">发展历史</h2>
+  <ul class="timeline">
+    <li>
+      <div class="year">1952</div>
+      <strong>现代投资组合理论（Markowitz）</strong>
+      均值-方差框架，量化的起点：用数学最优化构建组合
+    </li>
+    <li>
+      <div class="year">1964–1976</div>
+      <strong>CAPM 与套利定价理论</strong>
+      Sharpe、Lintner 提出 CAPM；Ross 提出 APT，奠定因子研究基础
+    </li>
+    <li>
+      <div class="year">1988</div>
+      <strong>文艺复兴科技（Renaissance）成立</strong>
+      James Simons 用数学和统计方法建立旗舰基金 Medallion，年化超 60%
+    </li>
+    <li>
+      <div class="year">1993</div>
+      <strong>动量效应被学术证实</strong>
+      Jegadeesh &amp; Titman 在《Journal of Finance》发表，12-1 月动量显著正收益
+    </li>
+    <li>
+      <div class="year">1996</div>
+      <strong>Fama-French 三因子模型</strong>
+      市场、规模、价值三因子，因子投资进入主流
+    </li>
+    <li>
+      <div class="year">2010s</div>
+      <strong>机器学习与另类数据</strong>
+      卫星图像、信用卡消费、NLP 情绪分析被纳入量化模型
+    </li>
+    <li>
+      <div class="year">2020s</div>
+      <strong>零售量化普及</strong>
+      QuantConnect、Alpaca、AkShare 等平台降低门槛，个人量化成为可能
+    </li>
+  </ul>
+
+  <!-- ══ 完整工作流 ══ -->
+  <h2 id="workflow">完整工作流</h2>
+  <pre><code><span class="cm"># 量化策略开发的标准流程</span>
+
+<span class="num">1</span>. 市场假说        <span class="cm"># 提出可验证的假设："动量股票未来表现更好"</span>
+<span class="num">2</span>. 数据获取        <span class="cm"># 历史价格、基本面、另类数据</span>
+<span class="num">3</span>. 因子构建        <span class="cm"># 将假说转化为可计算的数值信号</span>
+<span class="num">4</span>. 回测验证        <span class="cm"># 历史模拟，检验 IC、收益率、回撤</span>
+<span class="num">5</span>. 样本外测试      <span class="cm"># Walk-Forward 防止过拟合</span>
+<span class="num">6</span>. 风险分析        <span class="cm"># 夏普、Calmar、压力测试</span>
+<span class="num">7</span>. 实盘接入        <span class="cm"># API 对接券商，模拟盘验证后上实盘</span>
+<span class="num">8</span>. 持续监控        <span class="cm"># 因子有效性衰减预警，定期再评估</span></code></pre>
+
+  <!-- ══ 策略一：动量 ══ -->
+  <h2 id="momentum">① 动量策略</h2>
+  <p>
+    动量策略基于一个实证发现：<strong>过去一段时间表现好的资产，在未来短期内往往继续表现好</strong>。
+    这与有效市场假说相悖，却在全球多个市场、多个时间段被反复验证。
+  </p>
+
+  <div class="callout info">
+    <strong>📚 核心论文</strong>
+    Jegadeesh &amp; Titman (1993)：《Returns to Buying Winners and Selling Losers》<br>
+    用 1965–1989 年美股数据证明，买过去 6–12 个月赢家并持有 3–12 个月，可获显著超额收益。
+  </div>
+
+  <h3>12-1 月动量因子</h3>
+  <p>跳过最近 1 个月（规避短期反转效应），用 12 个月前到 1 个月前的累计收益作为信号：</p>
+
+  <div class="formula">
+    Momentum = P(t−1m) / P(t−12m) − 1
+  </div>
+
+  <pre><code><span class="kw">def</span> <span class="fn">calc_momentum</span>(<span class="var">closes</span>, <span class="var">as_of</span>, <span class="var">symbol</span>):
+    <span class="var">hist</span> = <span class="var">closes</span>[<span class="var">symbol</span>].loc[:<span class="var">as_of</span>].dropna()
+    <span class="var">price_now</span>  = <span class="var">hist</span>.iloc[-<span class="num">21</span>]   <span class="cm"># 1个月前</span>
+    <span class="var">price_12m</span>  = <span class="var">hist</span>.iloc[-<span class="num">252</span>]  <span class="cm"># 12个月前</span>
+    <span class="kw">return</span> <span class="var">price_now</span> / <span class="var">price_12m</span> - <span class="num">1</span></code></pre>
+
+  <h3>波动率调整动量（Barroso &amp; Santa-Clara 2015）</h3>
+  <p>
+    同样涨了 30%，低波动股票的信号质量远高于高波动股票。
+    用波动率归一化后，策略的夏普比率显著提升，且在动量崩溃期（如 2009 年）损失更小：
+  </p>
+
+  <div class="formula">
+    Vol-Adjusted Score = Momentum / AnnualVolatility
+  </div>
+
+  <pre><code><span class="var">annual_vol</span> = <span class="var">hist</span>.iloc[-<span class="num">252</span>:].pct_change().std() * np.sqrt(<span class="num">252</span>)
+<span class="var">score</span> = <span class="var">momentum</span> / <span class="var">annual_vol</span>  <span class="cm"># 每单位风险的动量强度</span></code></pre>
+
+  <h3>质量过滤器</h3>
+  <ul>
+    <li><strong>趋势持续性：</strong>过去 12 个月中，至少 5 个月上涨（排除单月急拉）</li>
+    <li><strong>波动率上限：</strong>年化波动率 &lt; 80%（排除过于投机的标的）</li>
+    <li><strong>200MA 过滤：</strong>个股价格须站上 200 日均线（顺势而为）</li>
+  </ul>
+
+  <h3>适用场景</h3>
+  <table>
+    <tr><th>维度</th><th>说明</th></tr>
+    <tr><td>最优换仓频率</td><td>月度（周度因摩擦成本过高而损耗显著）</td></tr>
+    <tr><td>持仓数量</td><td>10–20 只（过少集中风险大，过多稀释动量效应）</td></tr>
+    <tr><td>最大风险</td><td>动量崩溃（Momentum Crash）：市场急反弹时输家大涨</td></tr>
+    <tr><td>典型超额收益</td><td>美股年化 3–8%（学术样本），实盘因成本/容量有所摩擦</td></tr>
+  </table>
+
+  <!-- ══ 策略二：均值回归 ══ -->
+  <h2 id="mean-reversion">② 均值回归</h2>
+  <p>
+    与动量相反：<strong>偏离历史均值过大的价格，倾向于回归均值</strong>。
+    这在个股的日内 / 短期波动中更为常见，是做市商和高频交易者的主要盈利来源。
+  </p>
+
+  <h3>布林带策略</h3>
+  <div class="formula">
+    上轨 = MA(20) + 2σ　　下轨 = MA(20) − 2σ
+  </div>
+  <pre><code><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="var">ma</span>  = <span class="var">price</span>.rolling(<span class="num">20</span>).mean()
+<span class="var">std</span> = <span class="var">price</span>.rolling(<span class="num">20</span>).std()
+
+<span class="var">upper</span> = <span class="var">ma</span> + <span class="num">2</span> * <span class="var">std</span>
+<span class="var">lower</span> = <span class="var">ma</span> - <span class="num">2</span> * <span class="var">std</span>
+
+<span class="cm"># 信号：价格触及下轨买入，触及上轨卖出</span>
+<span class="var">signal</span> = pd.Series(<span class="num">0</span>, index=<span class="var">price</span>.index)
+<span class="var">signal</span>[<span class="var">price</span> &lt; <span class="var">lower</span>] =  <span class="num">1</span>   <span class="cm"># 买入</span>
+<span class="var">signal</span>[<span class="var">price</span> &gt; <span class="var">upper</span>] = -<span class="num">1</span>   <span class="cm"># 卖出</span></code></pre>
+
+  <h3>Z-Score 信号</h3>
+  <pre><code><span class="cm"># 用滚动 Z-Score 度量价格偏离程度</span>
+<span class="var">z</span> = (<span class="var">price</span> - <span class="var">price</span>.rolling(<span class="num">60</span>).mean()) / <span class="var">price</span>.rolling(<span class="num">60</span>).std()
+
+<span class="cm"># |Z| > 2 时认为偏离显著，期待回归</span>
+<span class="var">entry_long</span>  = <span class="var">z</span> &lt; -<span class="num">2</span>
+<span class="var">entry_short</span> = <span class="var">z</span> &gt;  <span class="num">2</span></code></pre>
+
+  <div class="callout warn">
+    <strong>⚠️ 主要风险</strong>
+    均值回归假设价格最终会回归——但在趋势性行情（如 NVDA 2023–2024 的单边上涨）中，
+    价格持续偏离均值，均值回归策略会持续亏损。建议结合趋势过滤器使用。
+  </div>
+
+  <!-- ══ 策略三：多因子选股 ══ -->
+  <h2 id="factor">③ 多因子选股</h2>
+  <p>
+    多因子模型将若干个经过学术验证的因子加权合成，通过分散化提升单一因子的稳定性。
+    Fama-French 三因子（1993）和五因子（2015）是最广泛使用的基准框架。
+  </p>
+
+  <h3>主流因子体系</h3>
+  <table>
+    <tr><th>因子</th><th>代理变量</th><th>逻辑</th><th>经典文献</th></tr>
+    <tr>
+      <td><strong>价值（Value）</strong></td>
+      <td>P/B、P/E、EV/EBITDA</td>
+      <td>低估值股票被市场忽视，长期存在溢价</td>
+      <td>Fama &amp; French 1993</td>
+    </tr>
+    <tr>
+      <td><strong>动量（Momentum）</strong></td>
+      <td>12-1月收益率</td>
+      <td>趋势持续，信息扩散不完全</td>
+      <td>Jegadeesh &amp; Titman 1993</td>
+    </tr>
+    <tr>
+      <td><strong>质量（Quality）</strong></td>
+      <td>ROE、毛利率、Piotroski F-Score</td>
+      <td>高质量公司长期创造超额价值</td>
+      <td>Novy-Marx 2013</td>
+    </tr>
+    <tr>
+      <td><strong>低波动（Low Vol）</strong></td>
+      <td>历史日收益率标准差</td>
+      <td>低风险股票长期回报优于高风险股票（波动率异象）</td>
+      <td>Baker et al. 2011</td>
+    </tr>
+    <tr>
+      <td><strong>规模（Size）</strong></td>
+      <td>市值</td>
+      <td>小市值公司流动性溢价</td>
+      <td>Fama &amp; French 1993</td>
+    </tr>
+  </table>
+
+  <h3>合成因子评分</h3>
+  <pre><code><span class="kw">def</span> <span class="fn">composite_score</span>(<span class="var">df</span>):
+    <span class="cm"># 每个因子横截面 Z-Score 标准化，再加权合成</span>
+    <span class="var">z</span> = <span class="kw">lambda</span> <span class="var">s</span>: (<span class="var">s</span> - <span class="var">s</span>.mean()) / <span class="var">s</span>.std()
+
+    <span class="var">score</span> = (
+        <span class="num">0.35</span> * <span class="fn">z</span>(<span class="var">df</span>[<span class="str">"momentum_12_1"</span>]) +
+        <span class="num">0.25</span> * <span class="fn">z</span>(<span class="var">df</span>[<span class="str">"roe"</span>])          +
+        <span class="num">0.20</span> * <span class="fn">z</span>(<span class="var">df</span>[<span class="str">"gross_margin"</span>])  +
+        <span class="num">0.10</span> * <span class="fn">z</span>(-<span class="var">df</span>[<span class="str">"pb_ratio"</span>])     +  <span class="cm"># 低PB得高分</span>
+        <span class="num">0.10</span> * <span class="fn">z</span>(-<span class="var">df</span>[<span class="str">"annual_vol"</span>])    <span class="cm"># 低波动得高分</span>
+    )
+    <span class="kw">return</span> <span class="var">score</span>.sort_values(ascending=<span class="kw">False</span>)</code></pre>
+
+  <!-- ══ 策略四：统计套利 ══ -->
+  <h2 id="stat-arb">④ 统计套利（配对交易）</h2>
+  <p>
+    统计套利寻找价格走势高度相关的资产对，当二者价差偏离历史均值时开仓，
+    等价差回归时平仓获利。核心假设：两资产存在协整关系。
+  </p>
+
+  <h3>协整检验与配对选择</h3>
+  <pre><code><span class="kw">from</span> statsmodels.tsa.stattools <span class="kw">import</span> coint
+<span class="kw">import</span> numpy <span class="kw">as</span> np
+
+<span class="kw">def</span> <span class="fn">find_pairs</span>(<span class="var">prices_df</span>, <span class="var">p_threshold</span>=<span class="num">0.05</span>):
+    <span class="var">cols</span>  = <span class="var">prices_df</span>.columns
+    <span class="var">pairs</span> = []
+    <span class="kw">for</span> <span class="var">i</span> <span class="kw">in</span> range(len(<span class="var">cols</span>)):
+        <span class="kw">for</span> <span class="var">j</span> <span class="kw">in</span> range(<span class="var">i</span>+<span class="num">1</span>, len(<span class="var">cols</span>)):
+            _, <span class="var">p</span>, _ = <span class="fn">coint</span>(<span class="var">prices_df</span>[<span class="var">cols</span>[<span class="var">i</span>]],
+                              <span class="var">prices_df</span>[<span class="var">cols</span>[<span class="var">j</span>]])
+            <span class="kw">if</span> <span class="var">p</span> &lt; <span class="var">p_threshold</span>:
+                <span class="var">pairs</span>.append((<span class="var">cols</span>[<span class="var">i</span>], <span class="var">cols</span>[<span class="var">j</span>], <span class="var">p</span>))
+    <span class="kw">return</span> sorted(<span class="var">pairs</span>, key=<span class="kw">lambda</span> <span class="var">x</span>: <span class="var">x</span>[<span class="num">2</span>])
+
+<span class="cm"># 价差交易信号</span>
+<span class="var">spread</span> = <span class="var">log_price_A</span> - <span class="var">hedge_ratio</span> * <span class="var">log_price_B</span>
+<span class="var">z</span>      = (<span class="var">spread</span> - <span class="var">spread</span>.mean()) / <span class="var">spread</span>.std()
+
+<span class="var">long_A_short_B</span>  = <span class="var">z</span> &lt; -<span class="num">2</span>   <span class="cm"># 价差过低，做多A做空B</span>
+<span class="var">short_A_long_B</span>  = <span class="var">z</span> &gt;  <span class="num">2</span>   <span class="cm"># 价差过高，做空A做多B</span></code></pre>
+
+  <div class="callout tip">
+    <strong>💡 经典配对示例</strong>
+    可口可乐（KO）与百事可乐（PEP）、黄金ETF（GLD）与黄金矿业（GDX）、
+    同行业银行股之间，往往具有稳定的协整关系。
+  </div>
+
+  <!-- ══ 策略五：事件驱动 ══ -->
+  <h2 id="event">⑤ 事件驱动策略</h2>
+  <p>
+    通过提前识别和量化企业特定事件（财报、分析师评级变化、并购）对价格的影响，
+    在事件前后建立方向性仓位。
+  </p>
+
+  <h3>盈利惊喜（SUE）</h3>
+  <div class="formula">
+    SUE = (实际EPS − 分析师预期EPS) / EPS标准差
+  </div>
+  <p>
+    正向 SUE 往往在财报后数周内持续推动股价上涨（称为 Post-Earnings-Announcement Drift，PEAD），
+    原因是机构分析师更新模型、散户追涨存在延迟。
+  </p>
+
+  <h3>分析师预期修正</h3>
+  <pre><code><span class="cm"># 分析师上调预期 → 未来 1 个月超额收益倾向为正</span>
+<span class="var">revision_score</span> = (
+    <span class="var">num_upgrades</span> - <span class="var">num_downgrades</span>
+) / (<span class="var">num_upgrades</span> + <span class="var">num_downgrades</span> + <span class="num">1</span>)
+
+<span class="cm"># revision_score > 0.3 → 买入信号</span></code></pre>
+
+  <!-- ══ 风险管理 ══ -->
+  <h2 id="risk">风险管理</h2>
+  <p>再好的策略没有风险管理都会爆仓。以下是实盘中常用的风控体系：</p>
+
+  <h3>止损机制</h3>
+  <pre><code><span class="cm"># 个股止损：相对建仓价跌幅超过阈值时清仓</span>
+<span class="kw">STOP_LOSS</span> = -<span class="num">0.15</span>   <span class="cm"># -15%</span>
+
+<span class="kw">for</span> <span class="var">symbol</span>, <span class="var">pos</span> <span class="kw">in</span> <span class="var">holdings</span>.items():
+    <span class="var">ret</span> = (<span class="var">current_price</span>[<span class="var">symbol</span>] - <span class="var">pos</span>.cost) / <span class="var">pos</span>.cost
+    <span class="kw">if</span> <span class="var">ret</span> &lt;= <span class="kw">STOP_LOSS</span>:
+        <span class="fn">sell_all</span>(<span class="var">symbol</span>)
+
+<span class="cm"># 组合止损：最大回撤超过阈值时转防御仓位</span>
+<span class="kw">MAX_DD</span> = -<span class="num">0.20</span>   <span class="cm"># -20%</span>
+<span class="kw">if</span> <span class="var">portfolio_drawdown</span> &lt;= <span class="kw">MAX_DD</span>:
+    <span class="fn">switch_to_defensive</span>()   <span class="cm"># e.g. SHY 65% + GLD 25%</span></code></pre>
+
+  <h3>关键绩效指标</h3>
+  <table>
+    <tr><th>指标</th><th>公式</th><th>参考值</th></tr>
+    <tr><td>夏普比率</td><td>(年化收益 − 无风险利率) / 年化波动率</td><td>&gt; 1.0 为良好</td></tr>
+    <tr><td>最大回撤</td><td>(峰值净值 − 谷底净值) / 峰值净值</td><td>稳健策略 &lt; 25%</td></tr>
+    <tr><td>Calmar 比率</td><td>年化收益 / |最大回撤|</td><td>&gt; 0.5 为可接受</td></tr>
+    <tr><td>月度胜率</td><td>正收益月数 / 总月数</td><td>&gt; 55% 较理想</td></tr>
+    <tr><td>信息比率（IR）</td><td>年化超额收益 / 年化超额收益标准差</td><td>&gt; 0.5 有持续性</td></tr>
+  </table>
+
+  <!-- ══ 回测方法论 ══ -->
+  <h2 id="backtest">回测方法论</h2>
+
+  <div class="callout danger">
+    <strong>🚨 过拟合是量化研究最大的陷阱</strong>
+    在历史数据上反复调参，几乎可以让任何策略"看起来很好"——但这只是对噪声的记忆，实盘会立即穿帮。
+  </div>
+
+  <h3>滚动样本外验证（Walk-Forward Test）</h3>
+  <pre><code><span class="cm"># 正确的验证方式：训练集和测试集严格时间隔离</span>
+<span class="var">WINDOWS</span> = [
+    (<span class="str">"2008-01-01"</span>, <span class="str">"2015-12-31"</span>, <span class="str">"2016-01-01"</span>, <span class="str">"2017-12-31"</span>),
+    (<span class="str">"2010-01-01"</span>, <span class="str">"2017-12-31"</span>, <span class="str">"2018-01-01"</span>, <span class="str">"2019-12-31"</span>),
+    (<span class="str">"2012-01-01"</span>, <span class="str">"2019-12-31"</span>, <span class="str">"2020-01-01"</span>, <span class="str">"2021-12-31"</span>),
+    (<span class="str">"2014-01-01"</span>, <span class="str">"2021-12-31"</span>, <span class="str">"2022-01-01"</span>, <span class="str">"2024-12-31"</span>),
+]
+
+<span class="kw">for</span> <span class="var">train_start</span>, <span class="var">train_end</span>, <span class="var">test_start</span>, <span class="var">test_end</span> <span class="kw">in</span> <span class="var">WINDOWS</span>:
+    <span class="cm"># 仅在训练集上优化参数</span>
+    <span class="var">params</span> = <span class="fn">optimize</span>(<span class="var">train_start</span>, <span class="var">train_end</span>)
+    <span class="cm"># 在测试集上验证，不调整任何参数</span>
+    <span class="var">result</span> = <span class="fn">backtest</span>(<span class="var">test_start</span>, <span class="var">test_end</span>, <span class="var">params</span>)</code></pre>
+
+  <h3>常见偏差及规避</h3>
+  <table>
+    <tr><th>偏差类型</th><th>含义</th><th>规避方法</th></tr>
+    <tr><td>前视偏差（Look-ahead）</td><td>使用了当时未公开的数据</td><td>所有数据须在再平衡日前已发布</td></tr>
+    <tr><td>幸存者偏差</td><td>只用当前存活的股票历史</td><td>使用历史成分股（点时态数据）</td></tr>
+    <tr><td>过度拟合</td><td>参数专门针对历史数据优化</td><td>Walk-Forward，参数尽量少</td></tr>
+    <tr><td>交易成本低估</td><td>未考虑滑点、冲击成本</td><td>保守估计，大资金额外考虑市场冲击</td></tr>
+  </table>
+
+  <!-- ══ 交易成本 ══ -->
+  <h2 id="cost">交易成本的影响</h2>
+  <p>
+    对零售量化投资者来说，交易成本是压制回报最重要的因素之一，远比大多数人预期的影响更大。
+  </p>
+
+  <pre><code><span class="cm"># 美股成本估算（长桥/盈透等免佣平台）</span>
+<span class="var">COST_BUY</span>  = <span class="num">0.0006</span>   <span class="cm"># 单边：SEC费 + FINRA TAF + 滑点</span>
+<span class="var">COST_SELL</span> = <span class="num">0.0006</span>   <span class="cm"># 同上</span>
+<span class="var">ROUND_TRIP</span> = <span class="num">0.0012</span>  <span class="cm"># 双边约 0.12%</span>
+
+<span class="cm"># A股成本（国信/华鑫等券商）</span>
+<span class="var">A_BUY</span>  = <span class="num">0.00027</span>   <span class="cm"># 佣金0.025% + 过户费0.002%</span>
+<span class="var">A_SELL</span> = <span class="num">0.00177</span>   <span class="cm"># 佣金0.025% + 印花税0.1% + 过户费0.002%</span>
+
+<span class="cm"># 以月度换仓30%换手率为例（年化）</span>
+<span class="var">annual_cost</span> = <span class="num">12</span> * <span class="num">0.30</span> * (<span class="var">COST_BUY</span> + <span class="var">COST_SELL</span>)
+<span class="cm"># 美股: ≈ 0.43% / A股: ≈ 0.73%（印花税影响显著）</span></code></pre>
+
+  <!-- ══ 策略对比 ══ -->
+  <h2 id="comparison">策略横向对比</h2>
+  <table>
+    <tr>
+      <th>策略</th>
+      <th>持仓周期</th>
+      <th>典型年化超额</th>
+      <th>主要风险</th>
+      <th>适合规模</th>
+    </tr>
+    <tr>
+      <td><strong>动量</strong></td>
+      <td>1–3 个月</td>
+      <td>3–8%</td>
+      <td>动量崩溃（急速反转）</td>
+      <td>不限</td>
+    </tr>
+    <tr>
+      <td><strong>均值回归</strong></td>
+      <td>数天至 2 周</td>
+      <td>2–5%</td>
+      <td>趋势行情中持续亏损</td>
+      <td>中小资金</td>
+    </tr>
+    <tr>
+      <td><strong>多因子</strong></td>
+      <td>1–6 个月</td>
+      <td>2–6%</td>
+      <td>因子拥挤、同时失效</td>
+      <td>不限</td>
+    </tr>
+    <tr>
+      <td><strong>统计套利</strong></td>
+      <td>数天</td>
+      <td>3–10%</td>
+      <td>协整关系破裂</td>
+      <td>中大资金</td>
+    </tr>
+    <tr>
+      <td><strong>事件驱动</strong></td>
+      <td>数天至 1 个月</td>
+      <td>4–10%</td>
+      <td>信息提前泄露，方向判断错误</td>
+      <td>中小资金</td>
+    </tr>
+  </table>
+
+  <div class="callout tip">
+    <strong>💡 组合使用效果更好</strong>
+    单一策略在某些市场环境下必然失效。将低相关性的策略组合（如动量 + 均值回归）
+    可以平滑收益曲线，提升整体夏普比率。
+  </div>
+
+  <p style="margin-top:56px; color:var(--text-muted); font-size:13px; border-top:1px solid var(--border); padding-top:20px;">
+    本教程对应代码实现：<a href="../local_backtest.py">local_backtest.py</a>（美股动量策略回测引擎）
+    &nbsp;·&nbsp; 策略持续迭代中
+  </p>
+
+</main>
+
+<script>
+  // 高亮当前滚动位置对应的导航项
+  const links   = document.querySelectorAll('nav a[href^="#"]');
+  const targets = [...links].map(l => document.querySelector(l.getAttribute('href')));
+  const onScroll = () => {
+    let cur = 0;
+    targets.forEach((t, i) => { if (t && t.getBoundingClientRect().top < 120) cur = i; });
+    links.forEach(l => l.classList.remove('active'));
+    links[cur].classList.add('active');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+</body>
+</html>
