@@ -22,7 +22,7 @@ import simfin as sf
 from scipy import stats
 from typing import Optional
 
-SIMFIN_API_KEY = "867fdd4a-f6ce-4fb2-94db-aff1698d82d5"
+SIMFIN_API_KEY = os.environ.get("SIMFIN_API_KEY", "")  # 从环境变量读取，勿硬编码
 SIMFIN_DIR     = "./cache/simfin"
 CACHE_FILE     = f"{SIMFIN_DIR}/fundamental_cache_v2.pkl"
 
