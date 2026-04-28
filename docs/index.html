@@ -46,13 +46,14 @@
   nav .sec { padding: 16px 20px 6px; font-size: 11px; font-weight: 600;
     color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 
-  main { margin-left: var(--nav-w); max-width: 860px; padding: 56px 48px; }
+  main { margin-left: var(--nav-w); max-width: 880px; padding: 56px 48px; }
 
   h1 { font-size: 30px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
-  h2 { font-size: 21px; font-weight: 600; margin: 56px 0 16px;
+  h2 { font-size: 21px; font-weight: 600; margin: 64px 0 16px;
     padding-bottom: 10px; border-bottom: 1px solid var(--border);
     scroll-margin-top: 24px; }
-  h3 { font-size: 16px; font-weight: 600; margin: 28px 0 10px; }
+  h3 { font-size: 16px; font-weight: 600; margin: 32px 0 10px; color: var(--text); }
+  h4 { font-size: 14px; font-weight: 600; margin: 20px 0 8px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
   p  { margin-bottom: 14px; color: #cdd9e5; }
   ul, ol { padding-left: 22px; margin-bottom: 14px; }
   li { margin-bottom: 7px; color: #cdd9e5; }
@@ -74,6 +75,7 @@
   .tag.o { color:var(--orange);  border-color:#6b4c0a; background:rgba(210,153,34,.08); }
 
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 20px 0; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 20px 0; }
   .card { background: var(--surface); border: 1px solid var(--border);
     border-radius: 8px; padding: 20px; transition: border-color .2s; }
   .card:hover { border-color: var(--accent); }
@@ -88,7 +90,7 @@
   p code, li code { background: var(--code-bg); border: 1px solid var(--border);
     border-radius: 4px; padding: 1px 6px; font-size: 12.5px; color: #e6c07b; }
   .kw{color:#f97583} .fn{color:#79b8ff} .str{color:#9ecbff}
-  .cm{color:#6a737d} .num{color:#79c0ff}
+  .cm{color:#6a737d} .num{color:#79c0ff} .var{color:#e6edf3}
 
   .callout { border-left: 3px solid; border-radius: 0 6px 6px 0;
     padding: 14px 18px; margin: 20px 0; font-size: 13.5px; }
@@ -107,8 +109,7 @@
 
   .analogy {
     background: rgba(163,113,247,.06); border: 1px solid rgba(163,113,247,.25);
-    border-radius: 8px; padding: 16px 20px; margin: 16px 0;
-    font-size: 13.5px;
+    border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-size: 13.5px;
   }
   .analogy .label { font-size: 11px; font-weight: 600; color: var(--purple);
     text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
@@ -121,10 +122,12 @@
     text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
 
   .strategy-header {
-    display: flex; align-items: center; gap: 14px; margin: 56px 0 16px;
+    display: flex; align-items: center; gap: 14px; margin: 64px 0 16px;
     padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    scroll-margin-top: 24px;
   }
-  .strategy-header .badge {
+  .strategy-header h2 { margin:0; border:none; padding:0; }
+  .badge {
     font-size: 11px; padding: 3px 10px; border-radius: 4px;
     font-weight: 600; white-space: nowrap;
   }
@@ -132,9 +135,52 @@
   .badge.mid  { background:#3d2b00; color:var(--orange); }
   .badge.high { background:#3d0f0a; color:var(--red); }
 
+  /* Citation inline tag */
+  .cite {
+    display: inline-block; font-size: 10.5px; color: var(--muted);
+    border: 1px solid var(--border); border-radius: 3px;
+    padding: 0 5px; vertical-align: middle; margin-left: 3px;
+    font-style: italic;
+  }
+
+  /* Stat highlight boxes */
+  .stat-row { display: flex; gap: 12px; margin: 16px 0; flex-wrap: wrap; }
+  .stat-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px 20px; flex: 1; min-width: 140px;
+  }
+  .stat-box .val { font-size: 26px; font-weight: 700; color: var(--accent); }
+  .stat-box .desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
+
+  /* Numbered pitfall blocks */
+  .pitfall {
+    border: 1px solid rgba(248,81,73,.25); border-radius: 10px;
+    padding: 24px 28px; margin: 28px 0;
+    background: rgba(248,81,73,.03);
+  }
+  .pitfall-header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
+  .pitfall-num {
+    background: rgba(248,81,73,.15); color: var(--red);
+    font-size: 13px; font-weight: 700; min-width: 30px; height: 30px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .pitfall-title { font-size: 16px; font-weight: 600; color: var(--text); }
+  .pitfall-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .pitfall h4 { margin-top: 16px; }
+
+  /* Formula display */
+  .formula {
+    background: var(--code-bg); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px 20px; margin: 14px 0;
+    font-family: "SF Mono","Fira Code",Consolas,monospace;
+    font-size: 13px; color: #9ecbff; text-align: center; letter-spacing: 0.3px;
+  }
+
   @media(max-width:768px){
     nav{display:none} main{margin-left:0;padding:24px 20px}
-    .grid2{grid-template-columns:1fr} h1{font-size:22px}
+    .grid2,.grid3{grid-template-columns:1fr} h1{font-size:22px}
+    .stat-row{flex-direction:column}
   }
 </style>
 </head>
@@ -143,22 +189,25 @@
 <nav>
   <div class="logo">
     <h2>📈 量化交易指南</h2>
-    <p>写给工程师的入门手册</p>
+    <p>写给工程师的深度手册</p>
   </div>
   <div class="sec">背景</div>
   <a href="#premise">核心前提</a>
-  <a href="#market">市场如何运转</a>
+  <a href="#market">市场运转机制</a>
   <a href="#why-works">为什么量化能赚钱</a>
   <div class="sec">主要策略</div>
-  <a href="#momentum">动量策略</a>
-  <a href="#reversion">均值回归</a>
-  <a href="#factor">多因子选股</a>
-  <a href="#pairs">统计套利</a>
-  <a href="#event">事件驱动</a>
+  <a href="#momentum">① 动量策略</a>
+  <a href="#reversion">② 均值回归</a>
+  <a href="#factor">③ 多因子选股</a>
+  <a href="#pairs">④ 统计套利</a>
+  <a href="#event">⑤ 事件驱动</a>
+  <div class="sec">回测方法论</div>
+  <a href="#backtest-intro">回测的本质</a>
+  <a href="#pitfalls">八大回测陷阱</a>
+  <a href="#walkforward">Walk-Forward 验证</a>
   <div class="sec">工程实践</div>
-  <a href="#backtest">回测与验证</a>
   <a href="#risk">风险控制</a>
-  <a href="#cost">成本是最大的敌人</a>
+  <a href="#cost">交易成本</a>
   <a href="#choose">如何选择策略</a>
 </nav>
 
@@ -166,10 +215,10 @@
 
 <div class="hero">
   <h1>量化交易策略指南</h1>
-  <p class="sub">写给有工程背景、刚接触金融市场的合作者<br>重点：每种策略解决什么问题、在哪里用、在哪里会失效</p>
+  <p class="sub">写给有工程背景、刚接触金融市场的合作者<br>重点：每种策略的学术根基、使用场景、失效边界、以及回测中的常见陷阱</p>
   <div class="tags">
     <span class="tag b">算法思维优先</span>
-    <span class="tag g">实际场景导向</span>
+    <span class="tag g">学术文献支撑</span>
     <span class="tag p">最小化金融术语</span>
     <span class="tag o">美股 / A股</span>
   </div>
@@ -192,15 +241,14 @@
 
 <p>这意味着：</p>
 <ul>
-  <li>没有"永远有效"的策略，每种策略都有适用的市场环境</li>
-  <li>策略越简单，越不容易过拟合，越可能持续有效</li>
-  <li>执行质量（成本、时机）和信号质量同等重要</li>
+  <li>没有"永远有效"的策略，每种策略都有其适用的市场环境和失效边界</li>
+  <li>策略越简单参数越少，越不容易过拟合，越可能在样本外持续有效</li>
+  <li>执行质量（成本、时机、滑点）和信号质量同等重要，有时更重要</li>
+  <li>真正有效的因子只有少数几个，大多数发表的"新因子"是多重检验的假阳性</li>
 </ul>
 
-<!-- ══ 市场如何运转 ══ -->
+<!-- ══ 市场运转 ══ -->
 <h2 id="market">市场如何运转（极简版）</h2>
-
-<p>在进入策略之前，先建立几个基础概念：</p>
 
 <h3>股票是什么</h3>
 <p>
@@ -208,418 +256,1187 @@
   公司盈利时，你按比例分得利润（分红）；公司增长时，这块所有权本身也变得更值钱（股价上涨）。
   股价本质上是<strong>市场对这家公司未来现金流的折现估计</strong>——预期越高，股价越贵。
 </p>
+<p>
+  这里隐含了量化交易最重要的洞察：<strong>价格变动 = 预期变动，而不是业绩变动本身</strong>。
+  一家公司利润增长 20%，如果市场已经预期 25%，股价仍然会下跌。
+  量化策略要捕捉的是"预期的系统性错误"，而非预测绝对业绩。
+</p>
 
 <h3>几个必须知道的指标</h3>
 <table>
-  <tr><th>指标</th><th>含义</th><th>工程类比</th><th>一般参考范围</th></tr>
+  <tr><th>指标</th><th>计算方式</th><th>工程类比</th><th>参考范围</th></tr>
   <tr>
     <td><strong>市盈率 P/E</strong></td>
-    <td>股价 ÷ 每股利润，买入后需要多少年赚回投资</td>
-    <td>ROI 回收期</td>
-    <td>美股科技股通常 20–40，低于 15 偏便宜</td>
+    <td>股价 ÷ 每股年利润<br><small>买入后多少年的利润能覆盖成本</small></td>
+    <td>投资回收期（Payback Period）</td>
+    <td>美股科技 20–40，低于 15 偏低估</td>
   </tr>
   <tr>
     <td><strong>市净率 P/B</strong></td>
-    <td>股价 ÷ 每股净资产，相对账面价值的溢价</td>
-    <td>资产估值倍数</td>
+    <td>股价 ÷ 每股净资产<br><small>相对账面价值的溢价倍数</small></td>
+    <td>资产估值乘数</td>
     <td>P/B &lt; 1 意味着市场认为公司"不值账面价"</td>
   </tr>
   <tr>
     <td><strong>ROE</strong></td>
-    <td>净利润 ÷ 净资产，公司用自有资金赚钱的效率</td>
-    <td>系统资源利用率</td>
-    <td>ROE &gt; 15% 通常是优质公司</td>
+    <td>净利润 ÷ 净资产<br><small>公司用自有资金赚钱的效率</small></td>
+    <td>系统资源利用率（CPU utilization）</td>
+    <td>ROE &gt; 15% 通常是优质公司标志</td>
   </tr>
   <tr>
-    <td><strong>波动率</strong></td>
-    <td>价格日涨跌幅的标准差（年化），衡量风险</td>
-    <td>系统抖动 / jitter</td>
-    <td>美股个股年化 20–40%；SPY 约 15%</td>
+    <td><strong>年化波动率</strong></td>
+    <td>日收益率标准差 × √252<br><small>价格随机游走的剧烈程度</small></td>
+    <td>系统抖动 / p99 latency 离散程度</td>
+    <td>美股个股 20–50%，SPY（大盘 ETF）约 15%</td>
+  </tr>
+  <tr>
+    <td><strong>夏普比率</strong></td>
+    <td>（年化收益 - 无风险利率）÷ 年化波动率</td>
+    <td>单位资源消耗的吞吐量</td>
+    <td>&gt; 1.0 良好，&gt; 1.5 优秀，&gt; 2.0 罕见</td>
   </tr>
 </table>
-
-<h3>价格如何变动</h3>
-<p>价格变动由两类力量驱动，理解它们是选策略的关键：</p>
-<div class="grid2">
-  <div class="card">
-    <div class="ico">📰</div>
-    <h3>信息驱动（基本面）</h3>
-    <p>财报超预期、新产品发布、行业政策变化——导致价格出现<strong>方向性、持续性</strong>的移动</p>
-  </div>
-  <div class="card">
-    <div class="ico">😰</div>
-    <h3>情绪驱动（行为偏差）</h3>
-    <p>恐慌抛售、追涨杀跌——导致价格出现<strong>短暂的过度偏离</strong>，之后往往回归</p>
-  </div>
-</div>
-
-<p>
-  动量策略利用的是<strong>信息驱动的持续性</strong>；
-  均值回归利用的是<strong>情绪驱动的过度偏离</strong>。
-  选错了方向，策略就会失效。
-</p>
 
 <!-- ══ 为什么量化能赚钱 ══ -->
 <h2 id="why-works">为什么量化策略能持续赚钱</h2>
 <p>
-  如果市场完全有效，所有信息瞬间反映在价格中，量化策略就不可能持续获利。
-  但市场并不完全有效——原因是<strong>人类的行为偏差是系统性的、可预测的</strong>：
+  如果市场完全有效（EMH，有效市场假说），所有信息瞬间反映在价格中，量化策略就不可能持续获利。
+  但市场并不完全有效——原因是<strong>人类的行为偏差是系统性的、可预测的</strong>，
+  而机构套利力量并非无限，有容量和成本的限制。
 </p>
 
 <table>
-  <tr><th>行为偏差</th><th>在市场中的表现</th><th>对应可利用的策略</th></tr>
+  <tr><th>行为偏差</th><th>在市场中的具体表现</th><th>对应可利用的异象</th></tr>
   <tr>
     <td><strong>信息扩散延迟</strong></td>
-    <td>好消息发布后，机构先反应，散户数周后才跟进</td>
-    <td>动量策略、盈利惊喜</td>
+    <td>好消息发布后，机构分析师先更新模型，基金经理本周调仓，散户一个月后才注意到</td>
+    <td>动量效应、PEAD（财报惊喜漂移）</td>
   </tr>
   <tr>
-    <td><strong>处置效应</strong></td>
-    <td>投资者过早卖掉盈利的股票、死扛亏损的股票</td>
-    <td>动量策略（赢家持续被低估）</td>
+    <td><strong>处置效应</strong><br><small>（Disposition Effect）</small></td>
+    <td>投资者过早卖掉盈利的股票（锁定利润），死扛亏损的股票（不愿认亏）</td>
+    <td>动量效应（赢家持续被低卖，继续上涨）</td>
   </tr>
   <tr>
-    <td><strong>过度反应</strong></td>
-    <td>坏消息导致价格跌过头，之后反弹</td>
-    <td>均值回归、事件驱动</td>
+    <td><strong>过度反应</strong><br><small>（Overreaction）</small></td>
+    <td>坏消息引发恐慌性抛售，价格跌幅超过基本面支撑的合理水平</td>
+    <td>长期均值回归、价值因子</td>
   </tr>
   <tr>
-    <td><strong>注意力有限</strong></td>
-    <td>小公司的财务改善无人关注，价值被持续低估</td>
-    <td>价值因子、质量因子</td>
+    <td><strong>注意力有限</strong><br><small>（Limited Attention）</small></td>
+    <td>小公司的财务改善无人分析报道，信息扩散极慢，价值被持续低估</td>
+    <td>小市值溢价、价值因子</td>
+  </tr>
+  <tr>
+    <td><strong>机构约束</strong><br><small>（Institutional Friction）</small></td>
+    <td>基金经理有持仓集中度、行业偏好、流动性等限制，无法自由套利</td>
+    <td>低波动异象、低 Beta 溢价</td>
   </tr>
 </table>
 
 <div class="callout warn">
-  <strong>⚠️ 重要边界条件</strong>
-  当一个策略被足够多的资金使用时，偏差本身会消失——这就是"因子拥挤"。
-  这就像一个 bug 被所有人同时 patch 了，套利空间关闭。
-  量化策略本质上有容量上限，超过一定资金规模后收益衰减。
+  <strong>⚠️ 重要边界：因子拥挤与容量约束</strong>
+  当一个策略被足够多的资金同时使用时，偏差本身会消失——这就是"因子拥挤"（Factor Crowding）。
+  这就像一个 bug 被所有人同时 patch 了，套利空间关闭。量化策略本质上有容量上限，
+  超过一定规模后收益衰减，甚至在拥挤解除时引发集中性亏损（2007年8月的"量化危机"是典型案例）。
 </div>
 
-<!-- ══ 动量策略 ══ -->
+<!-- ══════════════════════════════════════
+     策略①：动量
+══════════════════════════════════════ -->
 <div class="strategy-header" id="momentum">
-  <h2 style="margin:0;border:none;padding:0">① 动量策略</h2>
+  <h2>① 动量策略（Momentum）</h2>
   <span class="badge low">实现难度：低</span>
-  <span class="badge mid">适合资金：不限</span>
+  <span class="badge low">适合规模：不限</span>
 </div>
 
-<p><strong>一句话描述：</strong>买最近涨得好的股票，持有一段时间。</p>
+<p><strong>一句话描述：</strong>过去 12 个月（跳过最近 1 个月）涨幅排名靠前的股票，未来 1–3 个月仍倾向于跑赢市场。</p>
 
-<h3>它在解决什么问题</h3>
-<p>
-  当一个公司发生根本性改变（新产品成功、行业景气度提升），这个信息不会被所有人同时消化——
-  机构分析师先更新模型，基金经理下周调仓，散户一个月后才注意到。
-  <strong>动量策略捕捉的正是这个信息扩散的时间差</strong>。
-</p>
-
-<div class="analogy">
-  <div class="label">🔁 工程类比</div>
-  类似搜索引擎的热度算法：一个词条被越来越多人搜索，排名就越高，
-  这反过来让更多人看到，形成正反馈。动量股票也是如此——
-  价格上涨吸引更多买家，买家推高价格，直到故事被完全 price in 为止。
+<div class="stat-row">
+  <div class="stat-box">
+    <div class="val">~1.0%</div>
+    <div class="desc">美股月均超额收益（1927–2020，赢家-输家多空组合）</div>
+  </div>
+  <div class="stat-box">
+    <div class="val">0.53→0.97</div>
+    <div class="desc">夏普比率提升（波动率调整后，Barroso &amp; Santa-Clara 2015）</div>
+  </div>
+  <div class="stat-box">
+    <div class="val">−73%</div>
+    <div class="desc">2009年4月动量最大单月亏损（动量崩溃，Daniel &amp; Moskowitz 2016）</div>
+  </div>
 </div>
 
-<h3>具体用法</h3>
+<h3>学术根基</h3>
 <p>
-  从 500 只股票里，选出过去 12 个月（跳过最近 1 个月）涨幅排名前 10% 的股票持有。
-  每月末重新评估，替换排名下滑的标的。跳过最近 1 个月是为了规避短期价格反转——
-  涨太急的股票往往在最近一个月回撤。
+  动量效应是金融学文献中记录最充分的市场异象之一，横跨资产类别和地理区域：
 </p>
+<table>
+  <tr><th>研究</th><th>核心发现</th><th>数据范围</th></tr>
+  <tr>
+    <td>Jegadeesh &amp; Titman <span class="cite">1993, JF</span></td>
+    <td>买入过去 3–12 月赢家、做空输家，持有 3–12 月，月均超额收益 ~1.0%</td>
+    <td>美股 1965–1989</td>
+  </tr>
+  <tr>
+    <td>Carhart <span class="cite">1997, JF</span></td>
+    <td>将动量加入 Fama-French 三因子，构成四因子模型（至今是基准）</td>
+    <td>美股共同基金</td>
+  </tr>
+  <tr>
+    <td>Rouwenhorst <span class="cite">1998, JF</span></td>
+    <td>12 个欧洲国家均存在动量效应，排除了美股数据挖掘的可能性</td>
+    <td>欧洲 12 国 1980–1995</td>
+  </tr>
+  <tr>
+    <td>Moskowitz et al. <span class="cite">2012, JFE</span></td>
+    <td>时间序列动量（TSMOM）：各大资产类别均存在，可构建跨资产趋势策略</td>
+    <td>58 种期货 1985–2009</td>
+  </tr>
+  <tr>
+    <td>Asness et al. <span class="cite">2013, JF</span></td>
+    <td>动量在股票、债券、商品、货币四大资产类别均显著</td>
+    <td>全球多资产</td>
+  </tr>
+</table>
+
+<h3>两种动量的区别</h3>
+<div class="grid2">
+  <div class="card">
+    <div class="ico">📊</div>
+    <h3>截面动量（CSMOM）</h3>
+    <p>同一时间点，比较不同股票之间的相对排名。<strong>买赢家，做空输家</strong>。
+    捕捉的是"相对信息扩散速度差异"。</p>
+  </div>
+  <div class="card">
+    <div class="ico">📈</div>
+    <h3>时间序列动量（TSMOM）</h3>
+    <p>对同一资产，看其自身过去表现是否为正。过去为正则做多，为负则做空或清仓。
+    更适合期货和 ETF，散户常用形式。</p>
+  </div>
+</div>
+
+<h3>参数设计：为什么是 J=12, skip=1, K=1</h3>
+<p>
+  动量策略有三个核心参数：<strong>形成期 J</strong>（看多少个月的历史），
+  <strong>跳过期 skip</strong>（跳过最近几个月），<strong>持有期 K</strong>（持有多久）。
+</p>
+<ul>
+  <li><strong>J=12 个月</strong>：学术文献中记录动量效应最显著的窗口。J=6 也有效，J&gt;12 后信号减弱甚至反转（长期均值回归开始主导）。</li>
+  <li><strong>skip=1 个月</strong>：Jegadeesh（1990）发现最近 1 个月的收益率存在<strong>短期反转</strong>——涨太急的股票会在下个月回撤。跳过这 1 个月，可以规避这个噪音。</li>
+  <li><strong>K=1–3 个月</strong>：信号的有效期。持有越久，信号稀释越多。月度换仓在信号强度和成本之间取得最好平衡。</li>
+</ul>
+
+<h3>动量的行为金融学解释</h3>
+<p>动量为什么有效，学术界有两种主流解释，至今仍有争论：</p>
+<div class="grid2">
+  <div class="card">
+    <div class="ico">🧠</div>
+    <h3>信息反应不足（Underreaction）</h3>
+    <p>投资者对新信息反应太慢（处置效应、锚定偏差）。好消息需要数周甚至数月才能被完全 price in，
+    价格持续向目标价趋近。<span class="cite">Daniel, Hirshleifer &amp; Subrahmanyam, 1998</span></p>
+  </div>
+  <div class="card">
+    <div class="ico">📉</div>
+    <h3>风险补偿（Risk Story）</h3>
+    <td>动量股在市场崩溃时往往遭受更大损失（2009年）。持有动量组合是在承担某种"隐性风险"，
+    超额收益是这种风险的补偿。<span class="cite">Fama &amp; French, 1996</span></td>
+  </div>
+</div>
+
+<h3>行业动量：被低估的驱动力</h3>
+<p>
+  Moskowitz &amp; Grinblatt（1999）<span class="cite">JF</span> 的研究发现，
+  个股动量中 <strong>60% 以上来自行业动量</strong>——整个行业同步上涨或下跌，
+  而非个股独立的信息。这意味着：
+</p>
+<ul>
+  <li>用行业 ETF 实现动量策略，可以降低成本并分散个股风险</li>
+  <li>行业轮动（Sector Rotation）是动量策略的简化版本，对散户更实用</li>
+  <li>选个股时，需要额外区分"行业驱动"和"个股独立信号"</li>
+</ul>
+
+<h3>改进：波动率调整动量</h3>
+<p>
+  Barroso &amp; Santa-Clara（2015）<span class="cite">JFE</span> 发现，
+  动量策略最大的风险是崩溃时的极端亏损，而这些崩溃发生在波动率急剧上升之后。
+  通过用波动率归一化动量得分，可以在高风险期主动降低敞口：
+</p>
+<div class="formula">
+  score_raw = return(t-12, t-1) &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--muted)">← 原始动量，只看涨幅</span><br><br>
+  score_vol_adj = return(t-12, t-1) / σ_annual &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--muted)">← 每单位波动获取的动量强度</span>
+</div>
+
+<pre><code><span class="cm"># σ_annual 用过去 1 年日收益率的标准差年化得到</span>
+<span class="var">daily_returns</span> = <span class="var">closes</span>.<span class="fn">pct_change</span>().<span class="fn">iloc</span>[<span class="num">-252</span>:]
+<span class="var">sigma_annual</span>  = <span class="var">daily_returns</span>.<span class="fn">std</span>() * (252 ** <span class="num">0.5</span>)
+
+<span class="var">score</span> = <span class="var">momentum_12_1</span> / <span class="var">sigma_annual</span>  <span class="cm"># 比 Sharpe 更直观的信号质量度量</span></code></pre>
+
+<div class="callout danger">
+  <strong>🚨 动量策略最大的敌人：动量崩溃（Momentum Crash）</strong>
+  Daniel &amp; Moskowitz（2016）<span class="cite">JFE</span> 系统研究了动量崩溃现象：
+  崩溃集中在市场底部反弹初期，此前跌幅最大的股票（动量策略做空标的）反弹最猛，
+  动量多头组合单月可亏损 30–40%。
+  2009 年 3 月至 5 月的动量策略净值下跌超过 50%。
+  <br><br>
+  <strong>根本原因</strong>：市场下跌期间，动量策略做多防御性行业、做空高 Beta 股票；
+  当市场反转时，高 Beta 股票涨幅远大于防御性股票，多空双杀。
+  <br><br>
+  <strong>规避方法</strong>：当大盘指数（SPY）跌破 200 日均线，立即清仓或切换到防御性资产（TLT、GLD）。
+  这个简单规则可以规避 80% 以上的动量崩溃损失。
+</div>
 
 <div class="scenario">
   <div class="label">✅ 适合用动量策略的情形</div>
   <ul style="margin:0">
-    <li>市场处于牛市或正常上涨环境（大盘指数在 200 日均线上方）</li>
-    <li>换仓频率：月度（周度因交易成本过高而损耗显著）</li>
-    <li>持仓分散：10–20 只股票，单只不超过总仓位 10%</li>
+    <li>大盘在 200 日均线以上（趋势上行期），信号最稳定</li>
+    <li>月度换仓，不追求日内精度（信号有效期 1–3 个月）</li>
+    <li>持仓 10–20 只股票，单只不超过总仓位 10%，行业分散</li>
+    <li>资金规模在 1 亿美元以内（超过后市场冲击开始侵蚀收益）</li>
   </ul>
 </div>
 
-<div class="callout danger">
-  <strong>🚨 动量策略最大的敌人：动量崩溃（Momentum Crash）</strong>
-  2009 年 3 月市场触底反弹时，此前跌幅最大的股票（动量策略的做空标的）反弹最猛。
-  动量多头组合在几周内损失 30–40%。
-  规避方法：当大盘指数跌破 200 日均线时，自动切换到防御性资产（债券、黄金）。
-</div>
-
-<h3>改进方向：波动率调整</h3>
-<p>
-  同样涨了 30%，稳健股票的动量信号质量远高于高波动股票（后者可能只是随机涨上去的）。
-  用波动率归一化后，策略的风险调整收益显著提升：
-</p>
-<pre><code><span class="cm"># 原始动量得分</span>
-<span class="var">score</span> = <span class="var">return_12_1m</span>
-
-<span class="cm"># 波动率调整后——每承担 1 单位风险获得的动量强度</span>
-<span class="var">score</span> = <span class="var">return_12_1m</span> / <span class="var">annual_volatility</span></code></pre>
-
-<!-- ══ 均值回归 ══ -->
+<!-- ══════════════════════════════════════
+     策略②：均值回归
+══════════════════════════════════════ -->
 <div class="strategy-header" id="reversion">
-  <h2 style="margin:0;border:none;padding:0">② 均值回归</h2>
-  <span class="badge low">实现难度：低</span>
-  <span class="badge mid">适合资金：中小</span>
+  <h2>② 均值回归（Mean Reversion）</h2>
+  <span class="badge low">实现难度：低–中</span>
+  <span class="badge mid">适合规模：中小</span>
 </div>
 
-<p><strong>一句话描述：</strong>当价格偏离历史正常水平太多时，赌它会回来。</p>
-
-<h3>它在解决什么问题</h3>
-<p>
-  市场情绪会放大短期价格波动。当一只股票因为短暂的坏消息（一个季度业绩不及预期）
-  暴跌 20%，但公司的长期竞争力没有改变，价格就会过度偏离合理水平，
-  <strong>等情绪平复后，价格往往会修复</strong>。均值回归策略就是系统性地识别并利用这类过度反应。
-</p>
+<p><strong>一句话描述：</strong>当价格偏离其历史均衡水平过远时，赌它会回来——偏离越远，回归期望收益越高。</p>
 
 <div class="analogy">
   <div class="label">🔁 工程类比</div>
-  类似控制系统中的 PID 控制器：系统偏离目标值越远，修正力越强。
-  价格偏离均值越远，回归的期望收益越大——但和控制系统一样，
-  如果系统的"设定点"本身移动了（公司基本面真的变差了），均值回归就会失效。
+  类似控制系统中的 <strong>PID 控制器</strong>：系统偏离设定点（均值）越远，修正力越强。
+  价格偏离均值越多个标准差，回归的概率和期望收益越高——但和控制系统一样，
+  如果"设定点"本身发生了永久性移动（公司基本面真的变差了），
+  继续按原来的均值做回归就会持续亏损。
 </div>
 
-<h3>具体用法</h3>
+<h3>三个时间维度的均值回归</h3>
+<p>均值回归不是单一策略，不同时间尺度上表现出截然不同的特征：</p>
+<table>
+  <tr><th>时间尺度</th><th>现象</th><th>核心研究</th><th>实操频率</th></tr>
+  <tr>
+    <td><strong>短期（1–5天）</strong></td>
+    <td>上周强势的股票，下周往往弱势；过度单边行情后的反弹</td>
+    <td>Jegadeesh <span class="cite">1990</span><br>Lehmann <span class="cite">1990</span></td>
+    <td>日内或隔夜，需要极低成本</td>
+  </tr>
+  <tr>
+    <td><strong>中期（1–12月）</strong></td>
+    <td>✗ 这个区间反而是<strong>动量效应</strong>主导，不是均值回归</td>
+    <td>Jegadeesh &amp; Titman <span class="cite">1993</span></td>
+    <td>—</td>
+  </tr>
+  <tr>
+    <td><strong>长期（3–5年）</strong></td>
+    <td>过去 3–5 年输家，未来 3–5 年往往反弹跑赢（长期反转）</td>
+    <td>De Bondt &amp; Thaler <span class="cite">1985</span></td>
+    <td>季度换仓，耐心持有</td>
+  </tr>
+</table>
+
+<div class="callout info">
+  <strong>📌 时间尺度悖论</strong>
+  同一只股票，1–12 个月是动量（顺势），3–5 年是均值回归（逆势）。
+  这不矛盾——短期信息扩散是顺势过程，长期估值修复是逆势过程。
+  在错误的时间尺度上使用策略，信号会完全反向，直接亏损。
+</div>
+
+<h3>如何验证均值回归是否存在：ADF 检验与 Hurst 指数</h3>
 <p>
-  计算股票价格相对过去 60 天均值偏离几个标准差（Z-Score），
-  偏离超过 -2σ 时认为超卖，买入；超过 +2σ 时认为超买，减仓。
+  在对某个价格序列做均值回归交易之前，应该先<strong>统计检验它是否真的均值回归</strong>，
+  而不是随机游走（下跌后继续下跌）。两个常用工具：
 </p>
+
+<pre><code><span class="kw">import</span> <span class="var">numpy</span> <span class="kw">as</span> <span class="var">np</span>
+<span class="kw">from</span> <span class="var">statsmodels.tsa.stattools</span> <span class="kw">import</span> <span class="fn">adfuller</span>
+
+<span class="cm"># ── ADF 检验：p < 0.05 意味着序列拒绝"单位根"假设，存在均值回归倾向</span>
+<span class="var">result</span> = <span class="fn">adfuller</span>(<span class="var">price_series</span>)
+<span class="var">p_value</span> = <span class="var">result</span>[<span class="num">1</span>]
+<span class="fn">print</span>(<span class="str">f"ADF p-value: {p_value:.4f} → {'均值回归' if p_value < 0.05 else '随机游走，谨慎操作'}"</span>)
+
+<span class="cm"># ── Hurst 指数：H < 0.5 均值回归；H ≈ 0.5 随机游走；H > 0.5 趋势（动量）</span>
+<span class="kw">def</span> <span class="fn">hurst_exponent</span>(<span class="var">ts</span>):
+    <span class="var">lags</span> = <span class="var">range</span>(<span class="num">2</span>, <span class="num">20</span>)
+    <span class="var">tau</span>  = [<span class="var">np</span>.<span class="fn">std</span>(<span class="var">np</span>.<span class="fn">subtract</span>(<span class="var">ts</span>[<span class="var">lag</span>:], <span class="var">ts</span>[:<span class="num">-</span><span class="var">lag</span>])) <span class="kw">for</span> <span class="var">lag</span> <span class="kw">in</span> <span class="var">lags</span>]
+    <span class="kw">return</span> <span class="var">np</span>.<span class="fn">polyfit</span>(<span class="var">np</span>.<span class="fn">log</span>(<span class="var">lags</span>), <span class="var">np</span>.<span class="fn">log</span>(<span class="var">tau</span>), <span class="num">1</span>)[<span class="num">0</span>]</code></pre>
+
+<h3>实际信号构建：Bollinger Band Z-Score</h3>
+<p>
+  最常用的均值回归信号是对价格序列计算 Z-Score：
+  相对过去 N 天的均值，当前偏离了几个标准差。
+</p>
+<div class="formula">
+  Z = (P_t − μ_N) / σ_N &nbsp;&nbsp;&nbsp;&nbsp;
+  <span style="color:var(--muted)">μ_N = N日均价，σ_N = N日价格标准差</span><br><br>
+  Z &lt; −2 → 超卖信号（做多）&nbsp;&nbsp;&nbsp;&nbsp; Z &gt; +2 → 超买信号（减仓或做空）
+</div>
 
 <div class="scenario">
   <div class="label">✅ 适合用均值回归的情形</div>
   <ul style="margin:0">
-    <li>震荡行情（市场没有明确方向，指数在区间内横盘）</li>
-    <li>个股因短期负面事件非理性下跌，但基本面无变化</li>
-    <li>适合换仓频率较高（数天到两周），持仓数量较少（5–10 只）</li>
+    <li>市场整体横盘震荡（大盘指数没有明确趋势方向）</li>
+    <li>个股因短期非根本性负面事件（季度业绩小幅不及预期）下跌，基本面未变</li>
+    <li>统计检验已确认该序列具有均值回归特性（H &lt; 0.5 且 ADF p &lt; 0.05）</li>
+    <li>持有周期 3–14 天，需要较低的交易成本（做市商账户或零佣金平台）</li>
   </ul>
 </div>
 
-<div class="callout warn">
-  <strong>⚠️ 最危险的情形：趋势行情中强行均值回归</strong>
-  当一只股票从 100 跌到 80，Z-Score 显示超卖于是买入，
-  结果它继续跌到 50——这在真正的基本面恶化中很常见。
-  需要配合基本面过滤器：只对财务健康的公司使用均值回归。
+<div class="callout danger">
+  <strong>🚨 最危险的情形：趋势行情中强行均值回归（"接飞刀"）</strong>
+  当一只股票从 100 跌到 80，Z-Score 显示 -2.5σ 超卖于是买入，
+  结果公司基本面已经恶化，股票继续跌到 40——这种情况在真实的基本面恶化中极为常见。
+  <br><br>
+  必须配合基本面过滤器：只对 ROE &gt; 10%、债务率正常的公司使用均值回归。
+  或者设置强制止损：亏损超过 -8% 无条件清仓，不等回归。
 </div>
 
-<!-- ══ 多因子选股 ══ -->
+<!-- ══════════════════════════════════════
+     策略③：多因子选股
+══════════════════════════════════════ -->
 <div class="strategy-header" id="factor">
-  <h2 style="margin:0;border:none;padding:0">③ 多因子选股</h2>
+  <h2>③ 多因子选股（Factor Investing）</h2>
   <span class="badge mid">实现难度：中</span>
-  <span class="badge low">适合资金：不限</span>
+  <span class="badge low">适合规模：不限</span>
 </div>
 
-<p><strong>一句话描述：</strong>用多个维度给股票打分，买综合得分最高的一组。</p>
-
-<h3>它在解决什么问题</h3>
-<p>
-  任何单一信号都会有失效的时候。把多个低相关性的因子组合，
-  就像系统里的多路冗余——当某个信号失效时，其他信号可以弥补。
-  这是从学术界经过数十年验证的成熟方法。
-</p>
+<p><strong>一句话描述：</strong>从多个维度对股票系统性打分，买综合得分最高的一组，通过分散持仓和低换手率获取稳定超额收益。</p>
 
 <div class="analogy">
   <div class="label">🔁 工程类比</div>
-  完全类似机器学习里的<strong>特征工程 + 集成学习</strong>：
+  完全类似机器学习里的<strong>特征工程 + 线性集成</strong>：
   每个因子是一个特征（动量、ROE、P/B、波动率），
-  横截面标准化等价于特征归一化，
-  加权合成等价于一个线性模型对多个特征的预测。
-  差别在于这里的"标签"是下个月的相对收益，"训练集"是金融学论文里几十年的历史数据。
+  横截面标准化等价于特征归一化（Min-Max 或 Z-Score），
+  加权合成等价于一个线性模型对多个特征打分。
+  差别在于这里的"标签"是下个月的相对收益，
+  "训练集"是金融学论文中几十年的历史数据，
+  而不是你自己跑出来的——用别人跑出来的结果是有意义的，
+  因为这些因子背后有行为金融学和经济学的理论支撑，而不只是数据拟合。
 </div>
 
-<h3>五个最经过验证的因子</h3>
+<h3>因子模型的发展历史</h3>
 <table>
-  <tr><th>因子</th><th>衡量什么</th><th>为什么有效</th></tr>
+  <tr><th>模型</th><th>因子</th><th>说明</th></tr>
   <tr>
-    <td><strong>动量</strong></td>
-    <td>过去 12 个月的价格表现</td>
-    <td>信息扩散延迟，赢家持续被低估</td>
+    <td><strong>CAPM</strong> <span class="cite">Sharpe 1964</span></td>
+    <td>市场 Beta（1个因子）</td>
+    <td>只用市场风险解释收益。实践中远不够用。</td>
   </tr>
   <tr>
-    <td><strong>质量（ROE）</strong></td>
-    <td>公司用自有资金赚钱的效率</td>
-    <td>高质量公司被市场系统性低估（机构偏好短期指标）</td>
+    <td><strong>Fama-French 三因子</strong> <span class="cite">1993, JFE</span></td>
+    <td>市场 + 规模（SMB）+ 价值（HML）</td>
+    <td>解释了约 90% 的分散化组合收益方差，奠定现代量化基础</td>
   </tr>
   <tr>
-    <td><strong>价值（1/P/B）</strong></td>
-    <td>账面价值相对股价的折扣</td>
-    <td>市场对低估值公司关注度低，导致持续低估</td>
+    <td><strong>Carhart 四因子</strong> <span class="cite">1997, JF</span></td>
+    <td>FF3 + 动量（WML）</td>
+    <td>标准业绩归因模型，至今用于基金评价</td>
   </tr>
   <tr>
-    <td><strong>低波动</strong></td>
-    <td>历史日收益率的标准差（取反）</td>
-    <td>投资者偏好高波动的"彩票股"，低波动股被忽视</td>
+    <td><strong>Fama-French 五因子</strong> <span class="cite">2015, JFE</span></td>
+    <td>FF3 + 盈利能力（RMW）+ 投资风格（CMA）</td>
+    <td>加入了对价值因子的补充解释（高盈利、保守投资）</td>
   </tr>
   <tr>
-    <td><strong>盈利增速</strong></td>
-    <td>营收/利润同比增长率</td>
-    <td>分析师对成长股更新预期有延迟</td>
+    <td><strong>Q-因子模型</strong> <span class="cite">Hou et al. 2015</span></td>
+    <td>市场 + 规模 + 投资 + ROE</td>
+    <td>从公司投资决策角度出发，与新古典经济学理论更一致</td>
   </tr>
 </table>
 
-<h3>如何组合使用</h3>
+<h3>五个最经过验证的因子</h3>
+<table>
+  <tr><th>因子</th><th>衡量什么</th><th>历史超额收益<br>（年化）</th><th>为什么有效</th></tr>
+  <tr>
+    <td><strong>价值（Value）</strong><br><small>1/P/B、1/P/E</small></td>
+    <td>公司的市场估值相对账面价值的折扣程度</td>
+    <td>~4–5%</td>
+    <td>市场对成长股过度乐观，低估值股票被系统性忽视</td>
+  </tr>
+  <tr>
+    <td><strong>规模（Size）</strong><br><small>市值取反</small></td>
+    <td>公司规模越小，潜在超额收益越高</td>
+    <td>~2–3%<br><small>（近年衰减）</small></td>
+    <td>机构难以持有小市值（流动性不足），导致定价效率低</td>
+  </tr>
+  <tr>
+    <td><strong>动量（Momentum）</strong><br><small>return_12_1m</small></td>
+    <td>过去 12 个月（跳过最近 1 月）的价格表现</td>
+    <td>~8–10%</td>
+    <td>信息扩散延迟、处置效应（见动量策略章节）</td>
+  </tr>
+  <tr>
+    <td><strong>质量（Quality）</strong><br><small>ROE、毛利率、F-Score</small></td>
+    <td>公司财务质量、盈利稳定性、资产负债表健康程度</td>
+    <td>~3–5%</td>
+    <td>机构偏好短期业绩，高质量但慢增长的公司被低估</td>
+  </tr>
+  <tr>
+    <td><strong>低波动（Low-Vol）</strong><br><small>σ 取反</small></td>
+    <td>历史日收益率标准差越低，打分越高</td>
+    <td>~3–4%</td>
+    <td>投资者偏好高波动"彩票股"，低波动股被忽视（低波动异象）</td>
+  </tr>
+</table>
+
+<h3>如何衡量因子的预测能力：IC 与 ICIR</h3>
 <p>
-  对每个因子单独做横截面排名（类似 percentile rank），
-  再加权合成。权重的选择比因子本身更重要——
-  没有理论依据支持某个权重一定最优，通常用等权或经验权重，避免过拟合。
+  选择因子时不能只看回测收益——收益可能来自特定时期的偶然因素。
+  更健壮的指标是<strong>IC（信息系数）</strong>和<strong>ICIR（IC 信息比率）</strong>：
 </p>
+<div class="formula">
+  IC_t = Spearman_rank_corr(factor_values_t, &nbsp; future_returns_{t+1})<br><br>
+  ICIR = mean(IC) / std(IC) &nbsp;&nbsp;&nbsp;&nbsp; <span style="color:var(--muted)">← 越高越好，&gt; 0.5 被视为稳定信号</span>
+</div>
+
+<p>
+  IC 衡量某期因子排名与下期收益排名的相关性（Spearman），取值 -1 到 1。
+  一个好因子的 IC 通常只有 <strong>0.03–0.08</strong>——听起来很低，
+  但在 500 只股票的截面上，持续为正的 IC 每个月可以积累出显著的超额收益。
+  ICIR 衡量的是这个信号的<strong>稳定性</strong>，一个 IC 均值为 0.05 但 ICIR 为 1.0 的因子，
+  远比 IC 均值 0.08 但 ICIR 为 0.3 的因子实用。
+</p>
+
+<h3>因子组合的关键原则</h3>
+<ul>
+  <li><strong>低相关性优先</strong>：选择相互相关性低的因子（如动量 + 低波动，两者在市场崩溃期负相关），组合效果远好于选多个同类因子</li>
+  <li><strong>等权优于优化权重</strong>：对历史数据过拟合的权重在样本外几乎必然表现更差。简单等权在大多数情况下稳健性更好</li>
+  <li><strong>横截面排名标准化</strong>：对每个因子在同一截面内做 percentile rank（0–1），消除量纲差异，再加权合成</li>
+</ul>
+
+<h3>因子动物园问题（Factor Zoo）</h3>
+<div class="callout warn">
+  <strong>⚠️ 学术界的警告：316+ 因子，大多数是假的</strong>
+  Harvey, Liu &amp; Zhu（2016）<span class="cite">RFS</span> 统计了学术期刊中发表的 316 个"有效因子"，
+  认为其中大多数是<strong>多重检验的假阳性</strong>——在 316 次实验中，
+  即使随机数据也会出现大量"显著"结果。
+  <br><br>
+  他们建议，新因子的 t-统计量门槛应从传统的 2.0 提升到 <strong>3.0</strong>，
+  才能可信地宣称发现了新因子。对于非学术研究者，建议<strong>只使用有明确经济学解释的少数因子</strong>，
+  而不是追逐新发表的"因子"。
+</div>
 
 <div class="scenario">
   <div class="label">✅ 多因子选股最适合的场景</div>
   <ul style="margin:0">
     <li>持仓周期 1–6 个月，换手率低，交易成本可控</li>
-    <li>资金量较大时（因为持仓需要足够分散）</li>
+    <li>资金体量适中或较大（需要持仓分散到 20–50 只股票）</li>
     <li>希望收益来源可解释、可归因，而非黑盒模型</li>
+    <li>追求稳定的风险调整收益，而非最大化短期绝对收益</li>
   </ul>
 </div>
 
-<!-- ══ 统计套利 ══ -->
+<!-- ══════════════════════════════════════
+     策略④：统计套利
+══════════════════════════════════════ -->
 <div class="strategy-header" id="pairs">
-  <h2 style="margin:0;border:none;padding:0">④ 统计套利（配对交易）</h2>
+  <h2>④ 统计套利（Statistical Arbitrage）</h2>
   <span class="badge high">实现难度：高</span>
-  <span class="badge mid">适合资金：中大</span>
+  <span class="badge mid">适合规模：中大</span>
 </div>
 
-<p><strong>一句话描述：</strong>找两只走势高度相关的股票，当它们偏离时赌它们会重新靠近。</p>
-
-<h3>它在解决什么问题</h3>
-<p>
-  可口可乐和百事可乐同属碳酸饮料行业，受相同的宏观因素驱动（原材料价格、消费趋势）。
-  在正常情况下，两者的价格比值保持在一个稳定区间——
-  当一方因为非根本性原因（短暂情绪、指数再平衡）偏离这个比值，
-  就存在做多被低估方、做空被高估方的套利机会。
-  <strong>这个策略对市场整体方向无感，只关心相对价值</strong>。
-</p>
+<p><strong>一句话描述：</strong>找两只走势高度相关（协整）的资产，当价差偏离时做多被低估方、做空被高估方，等价差收敛时获利。</p>
 
 <div class="analogy">
   <div class="label">🔁 工程类比</div>
-  类似分布式系统中的<strong>数据一致性检测</strong>：两个副本（两只股票）
-  理论上应该保持同步（协整关系），当检测到不一致（价差偏离）时触发修复（交易），
-  等一致性恢复（价差回归）后关闭操作。
+  类似分布式系统中的<strong>数据一致性检测与修复</strong>：两个副本（两只股票）
+  理论上应该保持同步（协整关系），当检测到不一致（价差偏离正常区间）时触发交易（修复），
+  等一致性恢复（价差回归）后平仓获利。
+  关键在于：你需要先证明"两个副本本来就应该同步"（协整检验），
+  否则它们只是碰巧走了一段相似的路，随时可能永久分叉。
+</div>
+
+<h3>协整（Cointegration）：比相关系数更强的条件</h3>
+<p>
+  两只股票价格高度相关，<strong>不等于</strong>它们适合做配对交易。
+  以下例子说明为什么：2010–2018 年，美国债券价格和美股均呈上涨趋势，相关系数为正，
+  但这只是"伪相关"——它们各自由不同的宏观因素驱动，并没有均值回归的约束关系。
+</p>
+<p>
+  <strong>协整</strong>是更严格的条件：两个价格序列本身可以各自随机游走，
+  但它们的<strong>线性组合</strong>（价差）是平稳的（具有均值回归特性）。
+  这意味着价差偏离后，存在经济力量将其拉回——通常是来自共同的基本面驱动因素。
+</p>
+
+<pre><code><span class="kw">from</span> <span class="var">statsmodels.tsa.stattools</span> <span class="kw">import</span> <span class="fn">coint</span>, <span class="fn">adfuller</span>
+<span class="kw">import</span> <span class="var">numpy</span> <span class="kw">as</span> <span class="var">np</span>
+
+<span class="cm"># Step 1: Engle-Granger 协整检验</span>
+<span class="var">score</span>, <span class="var">pvalue</span>, <span class="var">_</span> = <span class="fn">coint</span>(<span class="var">price_A</span>, <span class="var">price_B</span>)
+<span class="kw">if</span> <span class="var">pvalue</span> &lt; <span class="num">0.05</span>:
+    <span class="fn">print</span>(<span class="str">"协整关系显著，可以做配对交易"</span>)
+
+<span class="cm"># Step 2: 用 OLS 估计对冲比例（hedge ratio）</span>
+<span class="kw">import</span> <span class="var">statsmodels.api</span> <span class="kw">as</span> <span class="var">sm</span>
+<span class="var">model</span>  = <span class="var">sm</span>.<span class="fn">OLS</span>(<span class="var">price_A</span>, <span class="var">sm</span>.<span class="fn">add_constant</span>(<span class="var">price_B</span>)).<span class="fn">fit</span>()
+<span class="var">beta</span>   = <span class="var">model</span>.<span class="var">params</span>[<span class="num">1</span>]   <span class="cm"># 每买 1 单位 A，做空 beta 单位 B</span>
+<span class="var">spread</span> = <span class="var">price_A</span> - <span class="var">beta</span> * <span class="var">price_B</span>
+
+<span class="cm"># Step 3: 估计价差回归的半衰期（half-life），决定持仓时间预期</span>
+<span class="var">delta</span>     = <span class="var">spread</span>.<span class="fn">diff</span>().<span class="fn">dropna</span>()
+<span class="var">lag</span>       = <span class="var">spread</span>.<span class="fn">shift</span>(<span class="num">1</span>).<span class="fn">dropna</span>()
+<span class="var">lm</span>        = <span class="var">sm</span>.<span class="fn">OLS</span>(<span class="var">delta</span>, <span class="var">sm</span>.<span class="fn">add_constant</span>(<span class="var">lag</span>)).<span class="fn">fit</span>()
+<span class="var">half_life</span> = -<span class="var">np</span>.<span class="fn">log</span>(<span class="num">2</span>) / <span class="var">lm</span>.<span class="var">params</span>[<span class="num">1</span>]
+<span class="fn">print</span>(<span class="str">f"价差均值回归半衰期：{half_life:.1f} 天"</span>)
+<span class="cm"># 半衰期 5–30 天：适合交易；&gt; 60 天：信号太慢，成本太高</span></code></pre>
+
+<h3>适合的配对类型</h3>
+<table>
+  <tr><th>类型</th><th>例子</th><th>协整原因</th><th>注意事项</th></tr>
+  <tr>
+    <td>同行业竞争对手</td>
+    <td>可口可乐 vs 百事，摩根大通 vs 美国银行</td>
+    <td>共同宏观因素（原材料、利率）驱动</td>
+    <td>行业格局变化可能永久打破协整</td>
+  </tr>
+  <tr>
+    <td>ETF vs 成分股篮子</td>
+    <td>SPY vs 前 10 大持仓股</td>
+    <td>套利机制保证 ETF 与 NAV 高度一致</td>
+    <td>这种套利窗口极短，需要高速执行</td>
+  </tr>
+  <tr>
+    <td>同资产不同形式</td>
+    <td>A 股 vs H 股（同一公司两地上市）</td>
+    <td>本质是同一资产，理论上应同价</td>
+    <td>资本管制导致价差可能长期存在</td>
+  </tr>
+  <tr>
+    <td>上下游关系</td>
+    <td>石油生产商 vs 炼油商</td>
+    <td>原油价格同时影响双方利润</td>
+    <td>传导时滞不稳定，协整关系较弱</td>
+  </tr>
+</table>
+
+<div class="callout danger">
+  <strong>🚨 最大风险：协整关系永久破裂</strong>
+  2013 年，摩托罗拉和诺基亚曾是手机行业标准的配对——但苹果 iPhone 让诺基亚的商业模式
+  永久性崩溃，两者的协整关系从此消失。凡是做空诺基亚、做多摩托罗拉的配对策略，
+  从一个方向亏损，另一个方向也未能弥补。
+  <br><br>
+  必须设置基于时间的硬止损：如果价差在 <code>3 × half_life</code> 之后仍未回归，
+  强制认亏平仓——协整关系可能已经永久破裂。
 </div>
 
 <div class="scenario">
   <div class="label">✅ 适合用统计套利的情形</div>
   <ul style="margin:0">
-    <li>同行业内高度相关的股票对（银行 vs 银行、ETF vs 成分股）</li>
-    <li>需要做空能力（美股可融券做空；A股散户较难实现）</li>
-    <li>适合中高频（数天），对执行成本敏感，需要精准的进出场</li>
+    <li>有做空能力（美股：融券做空；A 股散户较难，需要股指期货对冲）</li>
+    <li>配对半衰期 5–30 天，过短成本过高，过长信号太慢</li>
+    <li>资金量足够大，可以同时维持多个配对，分散单对风险</li>
+    <li>有系统性监控协整关系是否仍然成立的机制（滚动窗口重新检验）</li>
   </ul>
 </div>
 
-<div class="callout danger">
-  <strong>🚨 最大风险：协整关系永久破裂</strong>
-  如果两只股票之所以相关是因为处于同一行业，当其中一家发生根本性变化
-  （被并购、行业格局重塑），相关性可能永久消失。
-  此时统计套利的止损和退出机制至关重要。
-</div>
-
-<!-- ══ 事件驱动 ══ -->
+<!-- ══════════════════════════════════════
+     策略⑤：事件驱动
+══════════════════════════════════════ -->
 <div class="strategy-header" id="event">
-  <h2 style="margin:0;border:none;padding:0">⑤ 事件驱动策略</h2>
+  <h2>⑤ 事件驱动策略（Event-Driven）</h2>
   <span class="badge mid">实现难度：中</span>
-  <span class="badge mid">适合资金：中小</span>
+  <span class="badge mid">适合规模：中小</span>
 </div>
 
-<p><strong>一句话描述：</strong>在特定可预期事件（财报、评级调整）前后建立仓位，利用市场反应不足或过度。</p>
+<p><strong>一句话描述：</strong>在可预期的企业事件（财报、收购、评级调整）前后建仓，利用市场对新信息的系统性反应不足。</p>
 
-<h3>最典型的场景：财报惊喜后的漂移</h3>
+<h3>最核心的子策略：盈利惊喜后的漂移（PEAD）</h3>
 <p>
-  当一家公司财报大幅超出分析师预期时，价格当天会大幅跳涨——
-  但研究发现，<strong>这个涨幅只是完整信息传导的开始</strong>，
-  接下来 4–8 周内股价往往还会继续跑赢大盘（称为 PEAD，
-  Post-Earnings-Announcement Drift）。
-  原因：基金经理调仓有时间成本，散户对新信息反应有延迟。
+  Ball &amp; Brown（1968）<span class="cite">JAR</span> 最早发现，
+  财报超出分析师预期后，股价会在接下来数周内<strong>持续跑赢大盘</strong>，
+  而不是在财报日一次性完成价格调整。
+  这个现象被称为 <strong>PEAD（Post-Earnings-Announcement Drift，财报发布后漂移）</strong>，
+  是学术文献中最稳健的市场异象之一，在几乎所有地区和年代都有记录。
 </p>
 
+<div class="stat-row">
+  <div class="stat-box">
+    <div class="val">~5–8%</div>
+    <div class="desc">最高 SUE 分位股票，财报后 60 天超额收益（Bernard &amp; Thomas 1989）</div>
+  </div>
+  <div class="stat-box">
+    <div class="val">60天</div>
+    <div class="desc">信号的有效窗口，60天后漂移基本消散</div>
+  </div>
+  <div class="stat-box">
+    <div class="val">40年+</div>
+    <div class="desc">现象的持续时间（1968年至今仍有记录）</div>
+  </div>
+</div>
+
+<h3>量化盈利惊喜：SUE 指标</h3>
+<p>
+  不能只看"超没超预期"，要量化惊喜的<strong>幅度与历史稳定性的比值</strong>——
+  这就是 SUE（Standardized Unexpected Earnings，标准化意外盈利）：
+</p>
+<div class="formula">
+  SUE = (EPS_actual − EPS_expected) / σ(EPS_surprise_历史)<br><br>
+  <span style="color:var(--muted)">分子 = 实际 EPS - 分析师共识预期；分母 = 过去若干季度的惊喜幅度标准差</span>
+</div>
+<p>
+  这个标准化很关键：同样超预期 10 美分，对一个每季度预期稳定的公司（σ 小，SUE 大）
+  信号更强，对一个业绩极不稳定的公司（σ 大，SUE 小）信号更弱。
+</p>
+
+<h3>为什么 PEAD 还能持续存在</h3>
+<p>
+  如果这个异象已经被发现超过 50 年，为什么还没被套利掉？学术界的解释：
+</p>
+<ul>
+  <li><strong>短卖约束</strong>：PEAD 的负向部分（超低 SUE 股票的下跌漂移）被短卖限制阻止了完全套利，尤其是小盘股</li>
+  <li><strong>机构调仓摩擦</strong>：大型基金调仓有流程审批、窗口期等限制，无法在财报日后立即全仓调整</li>
+  <li><strong>风险</strong>：策略虽然有正期望收益，但单个事件的结果方差很大，机构难以承受短期亏损</li>
+</ul>
+
+<h3>其他重要的事件类型</h3>
+<table>
+  <tr><th>事件类型</th><th>策略逻辑</th><th>持仓周期</th><th>关键风险</th></tr>
+  <tr>
+    <td><strong>并购套利</strong><br><small>（Merger Arb）</small></td>
+    <td>宣布收购后，目标公司股价通常在收购价以下（存在风险折扣）。
+    买入目标公司，等待交易完成收取价差。</td>
+    <td>数周至数月（等待监管审批）</td>
+    <td>交易失败（反垄断否决、融资失败），股价暴跌至宣布前水平</td>
+  </tr>
+  <tr>
+    <td><strong>分析师评级调整</strong></td>
+    <td>大型投行上调评级后，股价往往继续上涨数周（机构客户跟随调仓）</td>
+    <td>1–4 周</td>
+    <td>评级已被市场预期，信号提前消失</td>
+  </tr>
+  <tr>
+    <td><strong>指数再平衡</strong><br><small>（Index Reconstitution）</small></td>
+    <td>新晋入 Russell 1000/S&amp;P 500 的股票，在正式纳入日前后有显著价格效应（被动基金强制买入）</td>
+    <td>纳入日前 1 周到纳入后 1 月</td>
+    <td>效应被越来越多人预期，套利空间收窄</td>
+  </tr>
+  <tr>
+    <td><strong>分拆/分红</strong><br><small>（Spinoff/Special Dividend）</small></td>
+    <td>子公司分拆后，被指数基金强制卖出（不符合持仓规则），导致短暂低估</td>
+    <td>1–3 个月</td>
+    <td>需要深度分析被分拆资产的价值</td>
+  </tr>
+</table>
+
 <div class="scenario">
-  <div class="label">✅ 实践中的用法</div>
+  <div class="label">✅ PEAD 策略的实操流程</div>
   <ul style="margin:0">
-    <li>财报发布后（不是之前，避免信息不对称风险），筛选超预期幅度 &gt; 5% 的公司</li>
-    <li>在财报日后第 2–3 个交易日建仓，持有 1–4 周</li>
-    <li>配合分析师预期上调数量作为二次确认信号</li>
+    <li>财报发布后第 2–3 个交易日建仓（等待初始波动平息，确认方向）</li>
+    <li>筛选条件：SUE &gt; 1.5，且公司市值 &gt; 5 亿（流动性保证）</li>
+    <li>持有 4–8 周，或到下次财报发布日前平仓</li>
+    <li>配合分析师预期上调数量作为二次确认信号（EPS 上调 &gt; 3 家）</li>
+    <li>止损：建仓后亏损超过 -8% 无条件平仓</li>
   </ul>
 </div>
 
-<!-- ══ 回测与验证 ══ -->
-<h2 id="backtest">回测与验证：写给工程师的测试方法论</h2>
+<!-- ══════════════════════════════════════
+     回测方法论
+══════════════════════════════════════ -->
+<h2 id="backtest-intro">回测的本质：为什么聪明的人也会被骗</h2>
 
 <p>
-  量化策略的验证，和软件测试面临同样的核心挑战：
-  <strong>在训练数据（历史）上表现好，不代表在生产（实盘）中表现好。</strong>
+  回测（Backtest）是用历史数据模拟策略的表现。它的根本问题和所有历史拟合方法相同：
+  <strong>在历史数据上表现完美，不代表未来会有效</strong>。
+  但量化交易的回测有几个远比软件测试更隐蔽的陷阱，
+  即使经验丰富的工程师也容易忽略。
 </p>
 
 <div class="grid2">
   <div class="card">
     <div class="ico">🧪</div>
-    <h3>样本内回测</h3>
-    <p>等价于单元测试——只能证明代码逻辑正确，<strong>不能证明策略有效</strong></p>
+    <h3>样本内回测（In-sample）</h3>
+    <p>等价于单元测试——只能证明代码逻辑正确，<strong>不能证明策略有效</strong>。
+    在同一段数据上开发策略并回测，即便随机策略也能被调参到"很好看"。</p>
   </div>
   <div class="card">
     <div class="ico">🚀</div>
-    <h3>滚动样本外测试</h3>
-    <p>等价于 A/B 测试——用完全没见过的时间段验证，才有统计意义</p>
+    <h3>样本外测试（Out-of-sample）</h3>
+    <p>等价于 A/B 测试——用<strong>完全没见过的时间段</strong>验证。
+    但注意：即使是样本外测试，如果你反复调整策略直到样本外也好看，
+    样本外就变成了"第二个训练集"，失去了检验意义。</p>
   </div>
 </div>
 
-<h3>三种常见的"假有效"陷阱</h3>
+<!-- ══ 八大陷阱 ══ -->
+<h2 id="pitfalls">八大回测陷阱</h2>
+
+<!-- 陷阱 1 -->
+<div class="pitfall">
+  <div class="pitfall-header">
+    <div class="pitfall-num">1</div>
+    <div>
+      <div class="pitfall-title">前视偏差（Look-ahead Bias）</div>
+      <div class="pitfall-sub">最常见、最致命的错误；会让任何策略看起来"完美"</div>
+    </div>
+  </div>
+  <p>
+    前视偏差是指在回测中使用了<strong>决策时刻在现实中尚未公开的数据</strong>。
+    它不会报错，代码看起来完全正确，只是逻辑上穿越了时间。
+  </p>
+
+  <h4>典型案例</h4>
+  <ul>
+    <li><strong>财务数据滞后</strong>：公司 12 月 31 日的年报，实际要到次年 3–4 月才发布（SEC 要求 90 天内）。
+      如果在 1 月 15 日的回测中使用"去年年报的 ROE"，就用了未来数据——
+      现实中 1 月 15 日你根本不知道这个数字。</li>
+    <li><strong>指数成分股</strong>：用当前的 S&amp;P 500 成分股做 2005 年的回测——
+      但 2005 年这些公司中有很多还不在指数里（它们是因为后来业绩好才被纳入的）。
+      等于你在 2005 年就"知道"了哪些公司未来会成功。</li>
+    <li><strong>分析师共识</strong>：分析师的盈利预期在每个交易日都在变化。
+      如果数据库存储的是"最新"预期而非"当时"的预期，回测就存在前视偏差。</li>
+  </ul>
+
+  <h4>量化影响</h4>
+  <p>
+    前视偏差对回测结果的影响幅度没有上限——一个纯靠前视偏差的"策略"，
+    可以展示出年化 50%+ 的"收益"，却在实盘中接近零甚至为负。
+  </p>
+
+  <h4>如何避免</h4>
+  <ul>
+    <li>对所有基本面数据，存储<strong>实际发布日期</strong>（Filing Date），而非报告期结束日期</li>
+    <li>在回测逻辑中，每个决策时间点只允许使用"在该时间点之前已发布"的数据——这叫 <strong>Point-in-Time（PIT）数据</strong></li>
+    <li>使用提供 PIT 数据的数据商（如 Compustat 的 Point-in-Time 版本，SimFin 的历史快照）</li>
+  </ul>
+</div>
+
+<!-- 陷阱 2 -->
+<div class="pitfall">
+  <div class="pitfall-header">
+    <div class="pitfall-num">2</div>
+    <div>
+      <div class="pitfall-title">幸存者偏差（Survivorship Bias）</div>
+      <div class="pitfall-sub">只用"活下来"的股票回测，等于只统计了命运好的那一半</div>
+    </div>
+  </div>
+  <p>
+    如果你用今天的 S&amp;P 500 成分股做 2000–2010 年的历史回测，
+    你的股票池里<strong>不包含那些在这期间破产、退市、被收购的公司</strong>——
+    而这些公司在 2000 年其实还在指数里。
+    你的回测相当于在 2000 年就知道了哪 500 家公司能活过 10 年。
+  </p>
+
+  <h4>量化影响</h4>
+  <p>
+    Elton, Gruber &amp; Blake（1996）<span class="cite">JF</span> 对美国共同基金的研究发现，
+    幸存者偏差会使历史收益<strong>虚增约 1.4%/年</strong>。
+    Brown et al.（1992）估计对某些股票策略的影响高达 <strong>3%/年</strong>。
+    听起来不多，但 20 年复利后，这意味着终值误差超过 50%。
+  </p>
+  <p>
+    更严重的问题：退市股票在退市前的最后几个月往往有极端负收益（−50% 至 −90%），
+    这些极端亏损在不含退市股票的数据集中完全消失了。
+  </p>
+
+  <h4>如何避免</h4>
+  <ul>
+    <li>使用包含<strong>历史成分股快照</strong>的数据库，记录每只股票在每个时点是否属于你的股票池</li>
+    <li>在股票从股票池退出时（退市、被并购），使用其退市时的实际收益（包括退市前的亏损），而非直接删除</li>
+    <li>如果使用付费数据，确认其是否包含"已退市股票"的历史数据</li>
+  </ul>
+</div>
+
+<!-- 陷阱 3 -->
+<div class="pitfall">
+  <div class="pitfall-header">
+    <div class="pitfall-num">3</div>
+    <div>
+      <div class="pitfall-title">多重检验与数据挖掘（Multiple Testing / p-Hacking）</div>
+      <div class="pitfall-sub">在同一数据集上尝试 100 种策略，5 种会"显著有效"——纯粹靠运气</div>
+    </div>
+  </div>
+  <p>
+    假设你系统性地测试了 100 种不同的参数组合（不同的动量窗口、不同的因子权重、
+    不同的止损线），其中 5 种在 5% 显著性水平下"通过了检验"。
+    这 5 种真的有效吗？<strong>不一定——在 100 次随机实验中，本来就期望有 5 次假阳性。</strong>
+  </p>
+
+  <h4>学术界的警告</h4>
+  <p>
+    Harvey, Liu &amp; Zhu（2016）<span class="cite">RFS</span> 系统回顾了 1967–2016 年间
+    发表的 316 个"显著因子"，认为绝大多数是多重检验的产物。他们提议：
+  </p>
+  <ul>
+    <li>传统显著性门槛 t &gt; 2.0（p &lt; 0.05）已经不够——面对大量检验，应提高到 <strong>t &gt; 3.0</strong>（p &lt; 0.003）</li>
+    <li>发表偏误（Publication Bias）：只有"有效"的策略才会被发表，期刊上看到的结果已经经过自然筛选，是从更大量失败实验中存活下来的</li>
+  </ul>
+
+  <h4>Deflated Sharpe Ratio：考虑试验次数后的真实显著性</h4>
+  <p>
+    Bailey &amp; López de Prado（2014）<span class="cite">JPM</span>
+    提出了修正后的 Sharpe 比率检验方法：当你进行了 N 次参数搜索后，
+    单次结果的"显著夏普比率"门槛需要随 N 上升：
+  </p>
+  <div class="formula">
+    SR_min ≈ (1/√T) × Φ⁻¹(1 − α/N) &nbsp;&nbsp;&nbsp;&nbsp;
+    <span style="color:var(--muted)">T=样本数，α=置信水平，N=试验次数</span>
+  </div>
+  <p>
+    直觉：你跑了 100 次实验，即使策略完全无效，最好的那次结果的 Sharpe 也有
+    ~0.8。因此观察到 Sharpe = 1.0 时，你应该非常怀疑它是否真的显著，而不是立刻宣告"找到了好策略"。
+  </p>
+
+  <h4>如何避免</h4>
+  <ul>
+    <li>在开始任何参数搜索之前，先写下你的<strong>假设和预期的参数范围</strong>，而不是事后解释你找到的结果</li>
+    <li>严格区分"探索阶段"（在训练集上可以随便试）和"验证阶段"（验证集只能用一次）</li>
+    <li>优先使用有明确经济学解释的参数值（如 J=12 个月，有文献依据），而非网格搜索出来的"最优"值</li>
+    <li>对最终策略，报告 Deflated Sharpe Ratio，注明搜索了多少种参数组合</li>
+  </ul>
+</div>
+
+<!-- 陷阱 4 -->
+<div class="pitfall">
+  <div class="pitfall-header">
+    <div class="pitfall-num">4</div>
+    <div>
+      <div class="pitfall-title">过度拟合与样本外失效（Overfitting）</div>
+      <div class="pitfall-sub">参数越多、历史越短，过拟合风险越高；样本内漂亮，样本外归零</div>
+    </div>
+  </div>
+  <p>
+    过拟合是"用历史数据优化参数"的必然代价：参数越多，模型越能拟合历史噪音，
+    样本外性能就越差。量化策略中，即使只有 3–4 个参数，过拟合也很容易发生。
+  </p>
+
+  <h4>为什么时间序列数据比截面数据更容易过拟合</h4>
+  <p>
+    20 年月度数据 = 240 个观测值。这听起来不少，但金融收益率的信噪比极低——
+    噪音（市场随机性）远大于信号。如果你的策略有 5 个参数，
+    等效自由度 240 − 5 = 235，看似充足，
+    但当你测试了 100 种参数组合之后，有效自由度其实大幅缩水。
+  </p>
+  <p>
+    更隐蔽的过拟合：即使只有 1 个参数（如动量形成期），
+    如果你测试了 J = 1, 2, 3, ..., 24 个月并选择效果最好的，
+    这 24 次搜索本身就构成了多重检验意义上的过拟合。
+  </p>
+
+  <h4>如何避免</h4>
+  <ul>
+    <li><strong>奥卡姆剃刀原则</strong>：能用 2 个参数解决的问题，不用 5 个参数。简单模型在样本外更稳健。</li>
+    <li><strong>Walk-Forward 验证</strong>：见下一节的详细说明</li>
+    <li><strong>参数稳定性检验</strong>：最优参数附近的参数也应该表现类似。如果 J=12 远优于 J=11 和 J=13，说明是噪音</li>
+    <li><strong>使用文献中的参数</strong>：学术文献中经过多个独立数据集验证的参数（如 J=12）比你自己优化出的参数更可信</li>
+  </ul>
+</div>
+
+<!-- 陷阱 5 -->
+<div class="pitfall">
+  <div class="pitfall-header">
+    <div class="pitfall-num">5</div>
+    <div>
+      <div class="pitfall-title">交易成本低估（Transaction Cost Underestimation）</div>
+      <div class="pitfall-sub">回测中最容易被忽略，实盘中最大的"隐性税"</div>
+    </div>
+  </div>
+  <p>
+    很多回测假设可以按收盘价无成本交易，或只考虑佣金。
+    但真实交易的成本来源远不止佣金，尤其是策略换手率较高时，
+    <strong>总摩擦成本可能是佣金的 5–10 倍</strong>。
+  </p>
+
+  <h4>成本的四个来源</h4>
+  <table>
+    <tr><th>成本来源</th><th>规模</th><th>哪类策略最受影响</th></tr>
+    <tr>
+      <td><strong>佣金</strong></td>
+      <td>美股：零佣金（Robinhood/Interactive Brokers）<br>A股：约 0.025% 单边</td>
+      <td>所有策略的基础成本</td>
+    </tr>
+    <tr>
+      <td><strong>印花税</strong></td>
+      <td>A股：0.1%（仅卖出），美股无</td>
+      <td>A股任何策略，换手越频繁损耗越大</td>
+    </tr>
+    <tr>
+      <td><strong>买卖价差（Bid-Ask Spread）</strong></td>
+      <td>大盘蓝筹：0.01–0.03%<br>小盘股：0.1–0.5%</td>
+      <td>高频交易、小盘股策略</td>
+    </tr>
+    <tr>
+      <td><strong>市场冲击成本（Market Impact）</strong></td>
+      <td>与订单规模占日成交量的比例正相关<br>超过 1% 日交易量时开始显著</td>
+      <td>大资金策略、流动性差的标的</td>
+    </tr>
+  </table>
+
+  <h4>换手率的复利效应</h4>
+  <p>假设每次换仓的双边摩擦成本为 0.12%（美股），换手率 30%：</p>
+  <ul>
+    <li><strong>周度换仓</strong>：52 次 × 30% × 0.12% ≈ <strong>每年消耗 1.87%</strong></li>
+    <li><strong>月度换仓</strong>：12 次 × 30% × 0.12% ≈ <strong>每年消耗 0.43%</strong></li>
+  </ul>
+  <p>
+    这 1.44% 的年化差距，在 20 年复利后意味着终值相差约 <strong>33%</strong>。
+    这就是为什么对于动量这类信号衰减慢的策略，月度换仓往往优于周度换仓——
+    不是信号质量的差距，而纯粹是成本节省。
+  </p>
+
+  <h4>如何在回测中正确估计成本</h4>
+  <pre><code><span class="cm"># 每次交易时，扣除双边滑点 + 佣金的估算</span>
+<span class="var">COST_PER_TRADE</span> = <span class="num">0.0006</span>  <span class="cm"># 美股：约 0.06% 双边（含点差）</span>
+<span class="var">COST_PER_TRADE</span> = <span class="num">0.002</span>   <span class="cm"># A股：约 0.2% 双边（含印花税 0.1% + 佣金 0.05%×2 + 点差）</span>
+
+<span class="cm"># 换仓时，对每笔买入和卖出分别扣除成本</span>
+<span class="var">trade_value</span> = <span class="fn">abs</span>(<span class="var">new_weight</span> - <span class="var">old_weight</span>) * <span class="var">portfolio_value</span>
+<span class="var">cost</span>        = <span class="var">trade_value</span> * <span class="var">COST_PER_TRADE</span>
+<span class="var">portfolio_value</span> -= <span class="var">cost</span></code></pre>
+</div>
+
+<!-- 陷阱 6 -->
+<div class="pitfall">
+  <div class="pitfall-header">
+    <div class="pitfall-num">6</div>
+    <div>
+      <div class="pitfall-title">流动性假设（Liquidity Illusion）</div>
+      <div class="pitfall-sub">回测假设可以按收盘价买入任意数量，现实中这个假设经常不成立</div>
+    </div>
+  </div>
+  <p>
+    回测通常假设在再平衡日收盘时，可以按收盘价买入或卖出任意数量的股票——
+    这在理论上隐含了无限流动性。现实中有两个硬约束：
+  </p>
+
+  <h4>约束一：容量限制</h4>
+  <p>
+    如果你的策略买入某只小盘股，买入金额不应超过该股票当日交易量的 <strong>1–5%</strong>——
+    否则你的订单本身就会推高价格（市场冲击），让你用更贵的价格买入。
+    实证研究（Almgren &amp; Chriss 2001 <span class="cite">JRI</span>）表明，
+    市场冲击成本大约与订单规模的平方根成正比：
+  </p>
+  <div class="formula">
+    Impact ≈ σ × √(Q / V) &nbsp;&nbsp;&nbsp;&nbsp;
+    <span style="color:var(--muted)">σ=股票波动率，Q=你的订单量，V=当日日均成交量</span>
+  </div>
+  <p>
+    这意味着：一个在 1000 万美元规模时夏普比率 1.5 的策略，
+    在 1 亿美元规模时夏普比率可能只有 0.8，10 亿美元时可能为负。
+  </p>
+
+  <h4>约束二：执行价格假设</h4>
+  <p>
+    回测按收盘价成交，但实际中：
+  </p>
+  <ul>
+    <li>收盘价是最后一笔成交价，实际大订单会影响收盘价，出现"自我实现"的价格</li>
+    <li>如果策略在收盘前才确定持仓，实际执行往往是次日开盘，会有过夜缺口风险</li>
+    <li><strong>实施缺口（Implementation Shortfall）</strong>：论文收益 vs 实际收益的差距，
+      通常在 0.1–0.5%/次</li>
+  </ul>
+
+  <h4>如何估计策略的容量上限</h4>
+  <pre><code><span class="cm"># 粗略估计：对于持仓中每只股票，计算你的仓位是否在流动性约束内</span>
+<span class="kw">for</span> <span class="var">symbol</span> <span class="kw">in</span> <span class="var">portfolio</span>:
+    <span class="var">position_value</span>  = <span class="var">portfolio</span>[<span class="var">symbol</span>] * <span class="var">price</span>[<span class="var">symbol</span>]
+    <span class="var">daily_volume</span>   = <span class="var">avg_daily_volume</span>[<span class="var">symbol</span>] * <span class="var">price</span>[<span class="var">symbol</span>]
+    <span class="var">participation</span>  = <span class="var">position_value</span> / <span class="var">daily_volume</span>
+    <span class="kw">if</span> <span class="var">participation</span> &gt; <span class="num">0.05</span>:  <span class="cm"># 超过 5% 日成交量，市场冲击不可忽视</span>
+        <span class="fn">print</span>(<span class="str">f"⚠ {symbol}: 流动性不足，回测结果可能虚高"</span>)</code></pre>
+</div>
+
+<!-- 陷阱 7 -->
+<div class="pitfall">
+  <div class="pitfall-header">
+    <div class="pitfall-num">7</div>
+    <div>
+      <div class="pitfall-title">时间段选择偏差（Data Snooping Bias）</div>
+      <div class="pitfall-sub">选择"效果最好"的回测时间段，等于再次过拟合</div>
+    </div>
+  </div>
+  <p>
+    假设你测试了 2000–2023 年、2005–2023 年、2010–2023 年三个时间段，
+    选择其中表现最好的作为"回测结果"展示——
+    这和参数优化一样，是对时间段的过拟合。
+  </p>
+
+  <h4>不同时代的市场特征差异很大</h4>
+  <table>
+    <tr><th>时间段</th><th>市场特征</th><th>对动量策略的影响</th></tr>
+    <tr>
+      <td>1980–2000</td>
+      <td>大盘长牛，利率持续下行，信息技术落后</td>
+      <td>动量效应极强（机构信息优势大）</td>
+    </tr>
+    <tr>
+      <td>2000–2008</td>
+      <td>两次大熊市（互联网泡沫+金融危机），高波动</td>
+      <td>动量在崩溃时遭受重创</td>
+    </tr>
+    <tr>
+      <td>2010–2020</td>
+      <td>QE 驱动的长牛，低波动，科技股主导</td>
+      <td>动量策略出现科技股偏向</td>
+    </tr>
+    <tr>
+      <td>2020 至今</td>
+      <td>COVID 冲击、通胀、利率急升、AI 浪潮</td>
+      <td>传统因子相关性被打乱，需要重新校准</td>
+    </tr>
+  </table>
+
+  <h4>如何避免</h4>
+  <ul>
+    <li>使用<strong>全部可用历史数据</strong>，包括你不喜欢的时间段（2000–2002 互联网泡沫、2008–2009 金融危机）</li>
+    <li>明确报告策略在不同市场环境（牛市、熊市、横盘）下的表现，而不只是整体年化收益</li>
+    <li>特别测试"大回撤时期"的策略行为——好的策略应该有明确的失效原因，而不是不可解释地亏损</li>
+  </ul>
+</div>
+
+<!-- 陷阱 8 -->
+<div class="pitfall">
+  <div class="pitfall-header">
+    <div class="pitfall-num">8</div>
+    <div>
+      <div class="pitfall-title">制度变迁与结构性断裂（Regime Change）</div>
+      <div class="pitfall-sub">策略在历史上有效，不代表当前的市场结构中仍然有效</div>
+    </div>
+  </div>
+  <p>
+    金融市场不是物理系统，它会对被发现的规律做出反应。
+    当一个策略被足够多的资金采用，或者市场结构发生根本性变化时，
+    历史上有效的策略可能完全失效。
+  </p>
+
+  <h4>重要的结构性变化时间点</h4>
+  <ul>
+    <li>
+      <strong>2000 年 Reg FD（公平披露规定）</strong>：美国 SEC 规定，公司不得对特定分析师选择性披露信息——
+      减少了机构的信息优势，削弱了基于内部消息的短期动量。
+    </li>
+    <li>
+      <strong>2007–2008 年 HFT 兴起</strong>：高频交易主导了市场微观结构，
+      买卖价差大幅收窄，但也使短期均值回归策略的利润空间显著压缩。
+    </li>
+    <li>
+      <strong>2010 年后被动投资的崛起</strong>：指数基金规模超过主动管理基金——
+      大量资金按市值权重买入，使得市值因子（规模因子）的套利空间减少。
+    </li>
+    <li>
+      <strong>2020–2022 年零利率到高利率转变</strong>：
+      折现率的急剧上升让估值逻辑发生结构性变化，过去低利率期间有效的成长股动量策略大幅回撤。
+    </li>
+  </ul>
+
+  <h4>如何识别制度变迁</h4>
+  <p>
+    没有完美的方法，但以下信号值得警惕：
+  </p>
+  <ul>
+    <li>因子的 IC 均值在近 2–3 年显著低于历史平均（信号衰减）</li>
+    <li>策略的因子暴露（Factor Loading）随时间漂移，与设计初衷不符</li>
+    <li>同类策略的多个独立实现都同时出现持续亏损（因子拥挤解除）</li>
+    <li>市场的相关性结构发生根本性变化（如 2020 年 3 月，几乎所有资产同时崩溃）</li>
+  </ul>
+
+  <div class="callout info">
+    <strong>📌 保持策略简单性的另一个理由</strong>
+    越简单的策略，其有效的经济学机制越清晰，你越容易判断这个机制是否仍然成立。
+    "买入过去一年的赢家"背后的机制（信息扩散延迟）不会因为市场结构变化而完全消失；
+    而一个依赖 50 个参数精确校准的复杂模型，
+    在市场结构稍有变化后就可能因为其中某个参数的失效而整体崩溃。
+  </div>
+</div>
+
+<!-- ══ Walk-Forward ══ -->
+<h2 id="walkforward">Walk-Forward 验证：时间序列数据的正确交叉验证</h2>
+
+<p>
+  传统机器学习中的 k-fold 交叉验证<strong>不适用于时间序列数据</strong>——
+  因为随机分割会导致用"未来数据训练、过去数据验证"的时间泄露。
+  正确的方法是 Walk-Forward（滚动窗口）验证：
+</p>
+
+<pre><code><span class="cm"># Walk-Forward 验证框架</span>
+<span class="cm"># 每轮：在训练窗口内确定参数 → 在完全独立的测试窗口上评估 → 滚动</span>
+
+<span class="var">windows</span> = [
+  { <span class="str">"train"</span>: (<span class="str">"2005"</span>, <span class="str">"2012"</span>),  <span class="str">"test"</span>: (<span class="str">"2013"</span>, <span class="str">"2014"</span>) },
+  { <span class="str">"train"</span>: (<span class="str">"2007"</span>, <span class="str">"2014"</span>),  <span class="str">"test"</span>: (<span class="str">"2015"</span>, <span class="str">"2016"</span>) },
+  { <span class="str">"train"</span>: (<span class="str">"2009"</span>, <span class="str">"2016"</span>),  <span class="str">"test"</span>: (<span class="str">"2017"</span>, <span class="str">"2018"</span>) },
+  { <span class="str">"train"</span>: (<span class="str">"2011"</span>, <span class="str">"2018"</span>),  <span class="str">"test"</span>: (<span class="str">"2019"</span>, <span class="str">"2020"</span>) },
+  { <span class="str">"train"</span>: (<span class="str">"2013"</span>, <span class="str">"2020"</span>),  <span class="str">"test"</span>: (<span class="str">"2021"</span>, <span class="str">"2022"</span>) },
+]
+
+<span class="cm"># 合并所有测试窗口的结果，拼接成完整的"样本外"净值曲线</span>
+<span class="cm"># 只有在所有测试窗口上都稳定正收益，策略才值得进入实盘验证</span></code></pre>
+
+<h3>Walk-Forward 的关键设计选择</h3>
 <table>
-  <tr><th>陷阱</th><th>发生原因</th><th>怎么避免</th></tr>
+  <tr><th>设计维度</th><th>选择</th><th>考量</th></tr>
   <tr>
-    <td><strong>前视偏差</strong><br><small>（Look-ahead Bias）</small></td>
-    <td>用了当时市场上还没公开的数据<br>（如：用季报数据，但季报实际发布在两个月后）</td>
-    <td>每条数据加上实际发布日期，只用"再平衡日之前已公开"的数据</td>
+    <td><strong>训练窗口长度</strong></td>
+    <td>至少包含一个完整牛熊周期（5–8 年）</td>
+    <td>太短：参数估计不稳定；太长：制度变迁导致早期数据失效</td>
   </tr>
   <tr>
-    <td><strong>幸存者偏差</strong></td>
-    <td>回测只用了现在还活着的股票<br>（已退市的差股票被自动忽略，夸大了历史收益）</td>
-    <td>使用历史成分股快照，包含当时的完整标的池</td>
+    <td><strong>滚动 vs 扩展</strong></td>
+    <td>扩展窗口（越来越多数据）更稳健</td>
+    <td>滚动窗口（固定长度）可以捕捉制度变迁，但参数会随时间变化</td>
   </tr>
   <tr>
-    <td><strong>过拟合</strong></td>
-    <td>参数是针对历史数据反复调整出来的<br>（参数越多、调整越多，过拟合风险越高）</td>
-    <td>Walk-Forward 验证；能用 3 个参数解决的，不用 10 个</td>
+    <td><strong>测试窗口长度</strong></td>
+    <td>1–2 年</td>
+    <td>太短：结果随机性大；太长：策略跨越多个市场环境，平均了重要差异</td>
+  </tr>
+  <tr>
+    <td><strong>参数是否允许更新</strong></td>
+    <td>保守做法：固定参数，只更新信号数据</td>
+    <td>允许参数更新会引入额外的过拟合风险</td>
   </tr>
 </table>
 
-<h3>Walk-Forward 验证的逻辑</h3>
-<pre><code><span class="cm"># 正确姿势：训练集和测试集严格按时间隔离，模拟真实部署</span>
-<span class="var">windows</span> = [
-  { <span class="str">"train"</span>: (<span class="str">"2008"</span>, <span class="str">"2015"</span>), <span class="str">"test"</span>: (<span class="str">"2016"</span>, <span class="str">"2017"</span>) },
-  { <span class="str">"train"</span>: (<span class="str">"2010"</span>, <span class="str">"2017"</span>), <span class="str">"test"</span>: (<span class="str">"2018"</span>, <span class="str">"2019"</span>) },
-  { <span class="str">"train"</span>: (<span class="str">"2012"</span>, <span class="str">"2019"</span>), <span class="str">"test"</span>: (<span class="str">"2020"</span>, <span class="str">"2021"</span>) },
-]
-<span class="cm"># 只有在所有测试窗口上都稳定盈利，策略才值得进入实盘验证阶段</span></code></pre>
+<div class="callout tip">
+  <strong>💡 Walk-Forward 结果的解读标准</strong>
+  一个策略要被认为"通过了验证"，应满足以下全部条件：
+  <br>① 所有测试窗口的平均年化超额收益 &gt; 0（包含 2008、2020 这样的困难时期）
+  <br>② 夏普比率在多数测试窗口 &gt; 0.5（不要求每个窗口都 &gt; 1.0，但不能有大量严重亏损的窗口）
+  <br>③ 样本外收益与样本内收益的比值（OOS/IS Ratio）&gt; 50%（过拟合会导致这个比值很低）
+  <br>④ 策略有清晰的经济学或行为金融学解释，知道它在什么市场环境下会失效
+</div>
 
 <!-- ══ 风险控制 ══ -->
 <h2 id="risk">风险控制：系统容错设计</h2>
 
-<p>量化系统的风控，和分布式系统的容错设计逻辑完全一样：
-  <strong>不是防止错误发生，而是限制单次错误的影响范围。</strong>
+<p>量化系统的风控逻辑与分布式系统的容错设计完全一致：
+  <strong>不是防止单次错误，而是限制单次错误的影响范围，并保证整个系统在局部故障下仍能生存。</strong>
 </p>
 
 <div class="grid2">
   <div class="card">
     <div class="ico">🔌</div>
-    <h3>单股熔断（止损）</h3>
-    <p>单只股票亏损超过 -15%，立即清仓。等价于单个服务实例超时后的 circuit breaker</p>
+    <h3>单股止损（Circuit Breaker）</h3>
+    <p>单只股票亏损超过 −15%，立即无条件清仓。等价于单个服务实例超时后的熔断——
+    不等恢复，直接隔离。</p>
   </div>
   <div class="card">
     <div class="ico">🛡️</div>
-    <h3>组合熔断</h3>
-    <p>整个组合回撤超过 -20%，全部切换到防御资产（债券+黄金）。等价于降级服务</p>
+    <h3>组合熔断（Drawdown Guard）</h3>
+    <p>整个组合从高点回撤超过 −20%，全部清仓切换到防御资产（TLT、GLD）。
+    等价于系统降级——核心服务保住资本，等待环境改善。</p>
   </div>
   <div class="card">
     <div class="ico">📊</div>
-    <h3>分散持仓</h3>
-    <p>单只股票不超过总仓位 10%。等价于负载均衡——防止单点故障</p>
+    <h3>分散持仓（Load Balancing）</h3>
+    <p>单只股票不超过总仓位 10%，行业集中度不超过 30%。
+    等价于负载均衡——防止单点故障影响整体。</p>
   </div>
   <div class="card">
     <div class="ico">🌊</div>
-    <h3>大盘过滤</h3>
-    <p>当市场指数跌破 200 日均线，暂停进攻性操作。等价于过载保护</p>
+    <h3>大盘过滤（Overload Protection）</h3>
+    <p>当市场指数跌破 200 日均线，暂停进攻性操作。等价于限流——
+    在系统过载时拒绝新请求，保护现有资源。</p>
   </div>
 </div>
 
 <!-- ══ 成本 ══ -->
-<h2 id="cost">成本是最大的隐性杀手</h2>
+<h2 id="cost">交易成本：最大的隐性杀手</h2>
 
 <p>
   大多数人低估了交易成本的长期影响。
@@ -627,25 +1444,15 @@
   降幅 33%，而且这个差距会随着时间复利放大。</strong>
 </p>
 
-<h3>成本的来源</h3>
 <table>
   <tr><th>成本类型</th><th>美股典型值</th><th>A股典型值</th><th>影响最大的策略</th></tr>
-  <tr><td>佣金</td><td>免佣（盈透/长桥）</td><td>0.025%/单边</td><td>高频、高换手率策略</td></tr>
+  <tr><td>佣金</td><td>零（盈透/长桥）</td><td>0.025%/单边</td><td>高换手率策略</td></tr>
   <tr><td>印花税</td><td>无</td><td>0.1%（仅卖出）</td><td>A 股所有策略</td></tr>
-  <tr><td>买卖价差（滑点）</td><td>0.02–0.05%</td><td>0.02–0.05%</td><td>大单、小盘股</td></tr>
-  <tr><td>市场冲击</td><td>资金越大越显著</td><td>资金越大越显著</td><td>大资金策略</td></tr>
+  <tr><td>买卖价差（滑点）</td><td>0.01–0.05%</td><td>0.02–0.1%（小盘更高）</td><td>小盘股、高频</td></tr>
+  <tr><td>市场冲击</td><td>订单量越大越显著，大盘股：可忽略；小盘股：可达 0.5%+</td><td>同左</td><td>大资金策略</td></tr>
 </table>
 
-<div class="callout info">
-  <strong>📊 实测数据：换仓频率对成本的影响（假设每次换手率 30%）</strong>
-  <br><br>
-  周度换仓：52 次/年 × 30% × 0.12% 双边 ≈ 每年多消耗 <strong>1.87%</strong><br>
-  月度换仓：12 次/年 × 30% × 0.12% 双边 ≈ 每年多消耗 <strong>0.43%</strong><br><br>
-  这 1.44% 的差距，在 17 年复利后意味着终值相差约 <strong>30%</strong>。
-  这就是为什么对动量这类信号衰减慢的策略，月度换仓往往优于周度换仓。
-</div>
-
-<!-- ══ 如何选择策略 ══ -->
+<!-- ══ 选择策略 ══ -->
 <h2 id="choose">如何根据条件选择策略</h2>
 
 <table>
@@ -657,7 +1464,7 @@
   <tr>
     <td>资金 30 万以内，刚入门</td>
     <td>动量 + 多因子（月度换仓）</td>
-    <td>实现简单，有大量学术验证，不需要做空</td>
+    <td>实现简单，有大量学术验证，不需要做空，容量上限高</td>
   </tr>
   <tr>
     <td>资金 100 万以上</td>
@@ -666,32 +1473,39 @@
   </tr>
   <tr>
     <td>市场震荡横盘</td>
-    <td>均值回归</td>
-    <td>动量在横盘市失效，均值回归更适合</td>
+    <td>均值回归（先验证 ADF）</td>
+    <td>动量在横盘市失效，均值回归在震荡期更稳定</td>
   </tr>
   <tr>
     <td>A 股市场</td>
     <td>动量 + 多因子，避免高频</td>
-    <td>A 股印花税让高换仓策略成本极高；T+1 限制日内均值回归</td>
+    <td>A股印花税让高换仓策略成本极高；T+1 限制日内均值回归；流动性分层明显</td>
   </tr>
   <tr>
     <td>不能接受大回撤</td>
-    <td>低波动因子 + 严格止损</td>
-    <td>低波动因子在下行市场表现更稳定</td>
+    <td>低波动因子 + 严格止损 + 大盘过滤</td>
+    <td>低波动因子在下行市表现更稳，配合熔断机制进一步控制回撤</td>
+  </tr>
+  <tr>
+    <td>有财报数据获取能力</td>
+    <td>事件驱动（PEAD）</td>
+    <td>PEAD 异象在学术上最为稳健，信号持续时间 4–8 周，成本可控</td>
   </tr>
 </table>
 
 <div class="callout tip">
-  <strong>💡 工程师视角的建议</strong>
-  不要从"哪个策略收益最高"出发，要从"这个策略的假设什么时候会失效"出发。
-  理解失效条件，才能设计出正确的熔断和监控机制——
-  这和系统设计中先想清楚故障模式再做容灾是一个道理。
+  <strong>💡 工程师视角的核心建议</strong>
+  不要从"哪个策略回测收益最高"出发——那是在优化历史噪音。
+  应该从"这个策略的经济学假设在什么条件下会失效"出发。
+  理解失效条件，才能设计正确的熔断和监控机制，
+  才能在策略开始失效时识别出来（而不是茫然地持续亏损等待"回归"）。
+  这和系统设计中先想清楚故障模式再做容灾，是完全一样的思路。
 </div>
 
 <p style="margin-top:56px;color:var(--muted);font-size:13px;border-top:1px solid var(--border);padding-top:20px;">
   对应代码实现：
   <a href="https://github.com/JingyueLiu925/quant-us-market/blob/main/local_backtest.py">local_backtest.py</a>
-  — 美股动量策略完整回测引擎（含波动率调整、基本面过滤、大盘熔断）
+  — 美股动量策略完整回测引擎，含波动率调整（Barroso &amp; Santa-Clara 2015）、基本面过滤、大盘熔断、Walk-Forward 验证
 </p>
 
 </main>
